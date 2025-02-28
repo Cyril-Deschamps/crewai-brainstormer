@@ -1,0 +1,656 @@
+# =========================
+# Phase: Autonomous Initialization
+# =========================
+initialization_proposition_A:
+  description: >
+    You are in the Autonomous Initialization phase. Generate an initial set of fictitious personas using general market trends and data.
+    This establishes a baseline user context for the entire design thinking process.
+  expected_output: >
+    A JSON array of persona objects. Each object must include keys "name", "age_range", "occupation", "behavior", and "pain_points".
+    Example: [ { "name": "Persona 1", "age_range": "25-34", "occupation": "Professional", "behavior": "Tech-savvy", "pain_points": ["complex UI", "lack of personalization"] }, ... ]
+  agent: researcher
+
+initialization_proposition_B:
+  description: >
+    In the Autonomous Initialization phase, propose a global context for the project by identifying potential usage scenarios and environments.
+  expected_output: >
+    A JSON object with keys "usage_scenarios" and "environmental_context". 
+    "usage_scenarios" should be an array of strings, and "environmental_context" should be a descriptive string.
+    Example: { "usage_scenarios": ["on-the-go", "at home", "in office"], "environmental_context": "A dynamic digital ecosystem with evolving user needs" }
+  agent: ux_designer
+
+initialization_proposition_C:
+  description: >
+    Add a strategic perspective by integrating market opportunities and potential challenges related to the project context.
+  expected_output: >
+    A JSON object with keys "market_opportunities" and "potential_challenges". Each key should map to an array of strings.
+    Example: { "market_opportunities": ["growing mobile adoption", "emerging tech trends"], "potential_challenges": ["high competition", "user adaptation issues"] }
+  agent: product_manager
+
+initialization_comparison:
+  description: >
+    Compare the outputs from propositions A, B, and C. Identify convergences, divergences, and key areas of alignment.
+  expected_output: >
+    A JSON object with keys "convergence", "divergence", and "recommendations". Each should be an array of strings.
+    Example: { "convergence": ["consistent need for personalization"], "divergence": ["different usage scenarios highlighted"], "recommendations": ["refine personas based on scenario insights"] }
+  agent: design_facilitator
+
+initialization_synthesis:
+  description: >
+    Synthesize all the information gathered to establish a clear and inspiring starting framework for the project, including personas, context, and strategic insights.
+  expected_output: >
+    A single JSON object summarizing the initial context with keys "final_personas", "final_context", and "final_strategic_insights", where:
+    - "final_personas" is an array of persona objects,
+    - "final_context" is a descriptive string,
+    - "final_strategic_insights" is an array of strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Empathy – Empathy Map
+# =========================
+empathy_map_collect_A:
+  description: >
+    In the Empathy phase, conduct simulated user interviews to gather qualitative insights on what users say, think, feel, and do,
+    focusing on their frustrations and motivations.
+  expected_output: >
+    A JSON array of strings, each representing a key insight from user interviews.
+  agent: researcher
+
+empathy_map_collect_B:
+  description: >
+    Complement the interview data by observing user behaviors in simulated environments, noting additional attitudes and actions.
+  expected_output: >
+    A JSON array of strings, each representing an insight from direct user behavior observations.
+  agent: ux_designer
+
+empathy_map_collect_C:
+  description: >
+    Provide additional insights from secondary data and trend analyses to broaden the user perspective.
+  expected_output: >
+    A JSON array of strings detailing supplementary insights from market research and contextual analysis.
+  agent: data_analyst
+
+empathy_map_comparison:
+  description: >
+    Compare the data from tasks A, B, and C. Identify converging themes and discrepancies across the different data sources.
+  expected_output: >
+    A JSON object with keys "common_insights" and "differences", each an array of strings.
+    Example: { "common_insights": ["users dislike complex navigation"], "differences": ["observation highlights curiosity about features not mentioned in interviews"] }
+  agent: design_facilitator
+
+empathy_map_synthesis:
+  description: >
+    Synthesize all compared data into a consolidated Empathy Map that outlines the key user needs, frustrations, and motivations.
+  expected_output: >
+    A JSON object representing the final Empathy Map with keys "say", "think", "feel", and "do", each mapping to an array of strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Empathy – Hopes and Fears
+# =========================
+hopes_fears_collect_A:
+  description: >
+    Generate an initial list of users' hopes and fears based on insights collected from simulated interviews.
+  expected_output: >
+    A JSON object with keys "hopes" and "fears", each mapping to an array of strings.
+  agent: researcher
+
+hopes_fears_collect_B:
+  description: >
+    Propose an alternative list that includes creative perspectives and additional insights from user observations.
+  expected_output: >
+    A JSON object with keys "hopes" and "fears", each mapping to an array of strings, highlighting innovative perspectives.
+  agent: creative_facilitator
+
+hopes_fears_collect_C:
+  description: >
+    Supplement the lists with quantitative analysis of qualitative data to validate user emotions.
+  expected_output: >
+    A JSON object with keys "validated_hopes" and "validated_fears", each an array of strings.
+  agent: data_analyst
+
+hopes_fears_comparison:
+  description: >
+    Compare the lists from tasks A, B, and C to identify common themes and variances.
+  expected_output: >
+    A JSON object with keys "common_hopes", "common_fears", and "variances", each an array of strings.
+  agent: design_facilitator
+
+hopes_fears_synthesis:
+  description: >
+    Synthesize the compared data into a final, validated list of user hopes and fears.
+  expected_output: >
+    A JSON object with keys "final_hopes" and "final_fears", each mapping to an array of strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Empathy – Stakeholder Map
+# =========================
+stakeholder_map_collect_A:
+  description: >
+    Identify the main stakeholders based on contextual analysis of the project.
+  expected_output: >
+    A JSON array of objects, each with keys "stakeholder_name" and "role".
+  agent: product_manager
+
+stakeholder_map_collect_B:
+  description: >
+    Enrich the stakeholder list by adding a commercial and strategic perspective on influential actors.
+  expected_output: >
+    A JSON array of objects, each with keys "stakeholder_name", "role", and "strategic_importance" (as a string).
+  agent: business_strategist
+
+stakeholder_map_collect_C:
+  description: >
+    Validate and adjust the stakeholder list based on additional user and field insights.
+  expected_output: >
+    A JSON array of objects, each with keys "stakeholder_name", "role", and "validated" (boolean).
+  agent: researcher
+
+stakeholder_map_comparison:
+  description: >
+    Compare the stakeholder lists from tasks A, B, and C to highlight commonalities and discrepancies.
+  expected_output: >
+    A JSON object with keys "common_stakeholders" and "discrepancies", each mapping to an array of strings.
+  agent: design_facilitator
+
+stakeholder_map_synthesis:
+  description: >
+    Consolidate all information to create a final, comprehensive Stakeholder Map.
+  expected_output: >
+    A JSON array of stakeholder objects with unified keys "stakeholder_name", "role", "strategic_importance", and "validated".
+  agent: design_facilitator
+
+# =========================
+# Phase: Definition – Needs Statements
+# =========================
+needs_statements_proposition_A:
+  description: >
+    Based on the Empathy Map and Hopes & Fears, propose an initial set of user needs statements.
+  expected_output: >
+    A JSON array of strings, each representing a clear and concise need statement.
+  agent: ux_designer
+
+needs_statements_proposition_B:
+  description: >
+    Propose an alternative or additional set of need statements using contextual and observational insights.
+  expected_output: >
+    A JSON array of additional need statements (strings) that complement the initial proposals.
+  agent: researcher
+
+needs_statements_proposition_C:
+  description: >
+    Propose need statements that incorporate a strategic and commercial perspective.
+  expected_output: >
+    A JSON array of need statements (strings) focusing on business and market objectives.
+  agent: product_manager
+
+needs_statements_comparison:
+  description: >
+    Compare the need statements from propositions A, B, and C to determine convergences and divergences.
+  expected_output: >
+    A JSON object with keys "common_needs" and "unique_needs", each an array of strings.
+  agent: design_facilitator
+
+needs_statements_synthesis:
+  description: >
+    Synthesize and validate the need statements into a final, coherent document.
+  expected_output: >
+    A JSON array of finalized need statements (strings) that will guide the ideation phase.
+  agent: design_facilitator
+
+# =========================
+# Phase: Definition – Assumptions and Questions
+# =========================
+assumptions_questions_proposition_A:
+  description: >
+    Propose an initial list of assumptions and questions based on collected insights and identified user needs.
+  expected_output: >
+    A JSON object with keys "assumptions" and "questions", each mapping to an array of strings.
+  agent: business_strategist
+
+assumptions_questions_proposition_B:
+  description: >
+    Propose additional assumptions and questions with deeper insights from detailed user data.
+  expected_output: >
+    A JSON object with keys "assumptions" and "questions", each an array of strings.
+  agent: researcher
+
+assumptions_questions_proposition_C:
+  description: >
+    Propose technical and operational questions focusing on feasibility and implementation constraints.
+  expected_output: >
+    A JSON object with keys "technical_questions" and "operational_questions", each mapping to an array of strings.
+  agent: software_engineer
+
+assumptions_questions_comparison:
+  description: >
+    Compare the assumptions and questions from propositions A, B, and C to find common themes and critical divergences.
+  expected_output: >
+    A JSON object with keys "common_items", "differences", and "recommendations", each an array of strings.
+  agent: design_facilitator
+
+assumptions_questions_synthesis:
+  description: >
+    Consolidate and validate the final list of assumptions and questions to form a guiding document for the project.
+  expected_output: >
+    A JSON object with keys "final_assumptions" and "final_questions", each mapping to an array of strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Ideation – Big Idea Vignettes
+# =========================
+big_idea_vignettes_proposition_A:
+  description: >
+    Propose an initial narrative idea for the solution, such as integrating contextual intelligence for personalized user experience.
+  expected_output: >
+    A JSON string describing the initial narrative idea with details on user benefits and core features.
+  agent: creative_facilitator
+
+big_idea_vignettes_proposition_B:
+  description: >
+    Propose an alternative narrative idea, for example, an interactive platform designed to boost user engagement.
+  expected_output: >
+    A JSON string describing the alternative narrative, emphasizing interactivity and engagement.
+  agent: innovation_coach
+
+big_idea_vignettes_proposition_C:
+  description: >
+    Propose a third narrative that integrates UX elements to further enhance the user experience.
+  expected_output: >
+    A JSON string describing a complementary narrative that adds detailed UX improvements.
+  agent: ux_designer
+
+big_idea_vignettes_comparison:
+  description: >
+    Compare the three narrative proposals to evaluate strengths, weaknesses, and integration potential.
+  expected_output: >
+    A JSON object with keys "pros", "cons", and "integration_recommendations", each mapping to an array of strings.
+  agent: design_facilitator
+
+big_idea_vignettes_synthesis:
+  description: >
+    Synthesize the compared narratives into a final consolidated version that integrates the best aspects of each proposal.
+  expected_output: >
+    A final JSON string containing the consolidated narrative description (vignette) of the solution.
+  agent: design_facilitator
+
+# =========================
+# Phase: Ideation – Writing Hills
+# =========================
+writing_hills_proposition_A:
+  description: >
+    Propose a visual and narrative representation of the objectives and challenges to overcome in the solution journey.
+  expected_output: >
+    A JSON object with keys "objectives", "challenges", and "narrative", where "objectives" and "challenges" are arrays of strings and "narrative" is a descriptive string.
+  agent: ux_designer
+
+writing_hills_proposition_B:
+  description: >
+    Propose an alternative representation using innovative visual metaphors to express project challenges.
+  expected_output: >
+    A JSON object with keys "objectives", "visual_metaphors", and "narrative", formatted as above.
+  agent: innovation_coach
+
+writing_hills_proposition_C:
+  description: >
+    Propose a version that integrates strategic and business goals into the narrative representation.
+  expected_output: >
+    A JSON object with keys "objectives", "business_goals", and "narrative", where "business_goals" is an array of strings.
+  agent: product_manager
+
+writing_hills_comparison:
+  description: >
+    Compare the different Writing Hills proposals to identify strengths and areas for improvement.
+  expected_output: >
+    A JSON object with keys "common_elements", "differences", and "suggestions", each an array of strings.
+  agent: design_facilitator
+
+writing_hills_synthesis:
+  description: >
+    Synthesize the proposals into a final, cohesive Writing Hills representation that guides the solution development.
+  expected_output: >
+    A JSON object with keys "final_objectives", "final_challenges", "final_visuals", and "final_narrative", each mapping to appropriate arrays or strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Ideation – Prioritization
+# =========================
+prioritization_proposition_A:
+  description: >
+    Propose an initial ranking of ideas based on their potential impact and feasibility, including defined evaluation criteria.
+  expected_output: >
+    A JSON array of objects. Each object should include keys "idea", "impact_score", "feasibility_score", and "justification".
+  agent: business_strategist
+
+prioritization_proposition_B:
+  description: >
+    Propose an alternative ranking focusing on the user experience aspect of each idea.
+  expected_output: >
+    A JSON array of objects similar to proposition A, but with emphasis on a "ux_score" instead of "impact_score".
+  agent: ux_designer
+
+prioritization_proposition_C:
+  description: >
+    Propose a complementary ranking that emphasizes creative innovation and potential breakthrough impact.
+  expected_output: >
+    A JSON array of objects with keys "idea", "innovation_score", "feasibility_score", and "justification".
+  agent: creative_facilitator
+
+prioritization_comparison:
+  description: >
+    Compare the three proposed rankings to identify convergences and differences, and refine the evaluation criteria.
+  expected_output: >
+    A JSON object with keys "common_rankings", "differences", and "final_recommendations", each an array of strings.
+  agent: design_facilitator
+
+prioritization_synthesis:
+  description: >
+    Synthesize the comparison into a final, consensus-based prioritized list of ideas.
+  expected_output: >
+    A final JSON array of objects (as in the individual rankings) that represents the consensus prioritized ranking.
+  agent: design_facilitator
+
+# =========================
+# Phase: Prototyping & Scenario Mapping – As-Is Scenario Map
+# =========================
+asis_scenario_map_proposition_A:
+  description: >
+    Propose an initial mapping of the current user experience, identifying key pain points and friction areas.
+  expected_output: >
+    A JSON object representing the "As-Is" map with keys "steps" (array of strings) and "pain_points" (array of strings).
+  agent: ux_designer
+
+asis_scenario_map_proposition_B:
+  description: >
+    Propose an alternative mapping based on interview and observational data.
+  expected_output: >
+    A JSON object with the same structure as proposition A, highlighting additional or alternative pain points.
+  agent: researcher
+
+asis_scenario_map_proposition_C:
+  description: >
+    Propose adjustments incorporating strategic and business insights to enrich the mapping.
+  expected_output: >
+    A JSON object similar to the previous ones but including an additional key "business_insights" (array of strings).
+  agent: product_manager
+
+asis_scenario_map_comparison:
+  description: >
+    Compare the three mappings to identify common issues and discrepancies in the current user experience.
+  expected_output: >
+    A JSON object with keys "common_steps", "differences", and "recommendations", each an array of strings.
+  agent: design_facilitator
+
+asis_scenario_map_synthesis:
+  description: >
+    Synthesize the proposals into a final, validated "As-Is" scenario map.
+  expected_output: >
+    A final JSON object representing the comprehensive "As-Is" map with keys "steps", "pain_points", and "business_insights".
+  agent: design_facilitator
+
+# =========================
+# Phase: Prototyping & Scenario Mapping – To-Be Scenario Map
+# =========================
+tobe_scenario_map_proposition_A:
+  description: >
+    Propose an initial vision of the ideal future user experience after implementing the solution.
+  expected_output: >
+    A JSON object representing the "To-Be" map with keys "improved_steps" (array of strings) and "expected_benefits" (array of strings).
+  agent: innovation_coach
+
+tobe_scenario_map_proposition_B:
+  description: >
+    Propose an alternative "To-Be" map focusing on UX improvements.
+  expected_output: >
+    A JSON object with keys "improved_steps" and "ux_enhancements" (array of strings).
+  agent: ux_designer
+
+tobe_scenario_map_proposition_C:
+  description: >
+    Propose a complementary vision incorporating creative and disruptive elements.
+  expected_output: >
+    A JSON object with keys "improved_steps", "disruptive_elements" (array of strings), and "expected_benefits".
+  agent: creative_facilitator
+
+tobe_scenario_map_comparison:
+  description: >
+    Compare the different "To-Be" proposals to identify the strongest elements and areas of synergy.
+  expected_output: >
+    A JSON object with keys "common_improvements", "differences", and "integration_suggestions", each an array of strings.
+  agent: design_facilitator
+
+tobe_scenario_map_synthesis:
+  description: >
+    Synthesize the proposals into a final "To-Be" scenario map that reflects the optimal future state.
+  expected_output: >
+    A final JSON object representing the consolidated "To-Be" map with keys "improved_steps", "key_enhancements", and "expected_benefits".
+  agent: design_facilitator
+
+# =========================
+# Phase: Prototyping & Scenario Mapping – Storyboard
+# =========================
+storyboard_proposition_A:
+  description: >
+    Propose an initial storyboard that visually outlines the entire user journey from start to finish.
+  expected_output: >
+    A JSON array of storyboard frames. Each frame should be an object with keys "frame_number", "description", and "visual_elements" (array of strings).
+  agent: ui_designer
+
+storyboard_proposition_B:
+  description: >
+    Propose an alternative storyboard with additional narrative details to enrich the user journey.
+  expected_output: >
+    A JSON array with the same structure as proposition A, including more detailed narrative descriptions.
+  agent: ux_designer
+
+storyboard_proposition_C:
+  description: >
+    Propose a third storyboard that integrates creative visual elements to enhance the narrative.
+  expected_output: >
+    A JSON array with the same structure as above, emphasizing creative visual storytelling.
+  agent: creative_facilitator
+
+storyboard_comparison:
+  description: >
+    Compare the three storyboard proposals to evaluate the narrative flow, clarity, and visual appeal.
+  expected_output: >
+    A JSON object with keys "narrative_comparison" and "visual_comparison", each an array of strings listing strengths and weaknesses.
+  agent: design_facilitator
+
+storyboard_synthesis:
+  description: >
+    Synthesize the storyboard proposals into a final, cohesive storyboard that clearly represents the solution journey.
+  expected_output: >
+    A final JSON array of storyboard frames (as defined earlier) that integrates the best aspects of all proposals.
+  agent: design_facilitator
+
+# =========================
+# Phase: Prototyping & Scenario Mapping – Technical Feasibility Analysis
+# =========================
+tech_feasibility_proposition_A:
+  description: >
+    Propose an initial technical feasibility analysis, evaluating constraints and potential for implementation.
+  expected_output: >
+    A JSON object with keys "viability", "constraints", and "recommendations", each mapping to an array of strings.
+  agent: software_engineer
+
+tech_feasibility_proposition_B:
+  description: >
+    Propose an alternative analysis that includes risk assessment and operational constraints.
+  expected_output: >
+    A JSON object with keys "risks", "operational_constraints", and "suggestions", each an array of strings.
+  agent: product_manager
+
+tech_feasibility_proposition_C:
+  description: >
+    Propose a complementary analysis focusing on cost-benefit and return on investment aspects.
+  expected_output: >
+    A JSON object with keys "cost_benefit", "roi_evaluation", and "financial_recommendations", each mapping to an array of strings.
+  agent: business_strategist
+
+tech_feasibility_comparison:
+  description: >
+    Compare the technical feasibility analyses from propositions A, B, and C to identify converging findings and critical issues.
+  expected_output: >
+    A JSON object with keys "common_findings", "differences", and "critical_issues", each an array of strings.
+  agent: design_facilitator
+
+tech_feasibility_synthesis:
+  description: >
+    Synthesize the technical feasibility analyses into a final, comprehensive report.
+  expected_output: >
+    A final JSON object with keys "final_viability", "final_constraints", and "final_recommendations", each mapping to an array of strings.
+  agent: design_facilitator
+
+# =========================
+# Phase: Test & Feedback – Playbacks
+# =========================
+playbacks_proposition_A:
+  description: >
+    Propose an initial session plan for a playback, detailing how prototypes and scenarios will be presented to stakeholders.
+  expected_output: >
+    A JSON object with keys "session_objectives", "structure", and "discussion_points", where each key maps to an array of strings.
+  agent: product_manager
+
+playbacks_proposition_B:
+  description: >
+    Propose an alternative playback plan that incorporates interactive elements to enhance stakeholder engagement.
+  expected_output: >
+    A JSON object with the same keys as in proposition A, with added interactive elements noted in "discussion_points".
+  agent: design_facilitator
+
+playbacks_proposition_C:
+  description: >
+    Propose a third playback plan focused on concrete demonstrations and immersive user scenarios.
+  expected_output: >
+    A JSON object with keys "session_objectives", "demonstration_details", and "interactive_activities", each mapping to an array of strings.
+  agent: creative_facilitator
+
+playbacks_comparison:
+  description: >
+    Compare the different playback session plans to evaluate effectiveness, interactivity, and stakeholder engagement.
+  expected_output: >
+    A JSON object with keys "effective_elements", "areas_for_improvement", and "final_recommendations", each an array of strings.
+  agent: design_facilitator
+
+playbacks_synthesis:
+  description: >
+    Synthesize the playback session plans into a final, consensus-based plan ready for implementation.
+  expected_output: >
+    A final JSON object with keys "final_session_plan" (an object with keys "objectives", "structure", "activities") detailing the agreed session plan.
+  agent: design_facilitator
+
+# =========================
+# Phase: Test & Feedback – Feedback Grid
+# =========================
+feedback_grid_proposition_A:
+  description: >
+    Propose an initial feedback grid structure to capture stakeholder feedback during playback sessions.
+  expected_output: >
+    A JSON object with keys "criteria" (an array of strings) and "rating_scale" (a description of the scale, e.g., "1-5").
+  agent: data_analyst
+
+feedback_grid_proposition_B:
+  description: >
+    Propose an alternative feedback grid that incorporates user experience metrics.
+  expected_output: >
+    A JSON object with keys "criteria", "ux_metrics" (an array of strings), and "rating_scale".
+  agent: ux_designer
+
+feedback_grid_proposition_C:
+  description: >
+    Propose a feedback grid from a strategic perspective, including business and operational performance indicators.
+  expected_output: >
+    A JSON object with keys "criteria", "business_indicators" (an array of strings), and "rating_scale".
+  agent: business_strategist
+
+feedback_grid_comparison:
+  description: >
+    Compare the feedback grid proposals to identify the most relevant criteria and harmonize the evaluation approach.
+  expected_output: >
+    A JSON object with keys "selected_criteria" (an array of strings) and "integration_plan" (an array of strings describing how to merge the grids).
+  agent: design_facilitator
+
+feedback_grid_synthesis:
+  description: >
+    Synthesize the feedback grid proposals into a final, comprehensive tool for capturing and analyzing stakeholder feedback.
+  expected_output: >
+    A final JSON object with keys "final_criteria" (array of strings) and "final_rating_scale" (string) that will be used to capture feedback.
+  agent: design_facilitator
+
+# =========================
+# Phase: Roadmapping – Experience Based Roadmapping
+# =========================
+roadmapping_proposition_A:
+  description: >
+    Propose an initial operational roadmap detailing the phases of development, testing, and deployment based on gathered insights.
+  expected_output: >
+    A JSON object with keys "milestones" (array of strings), "phases" (array of strings), and "resource_requirements" (array of strings).
+  agent: product_manager
+
+roadmapping_proposition_B:
+  description: >
+    Propose an alternative roadmap that includes detailed technical planning and implementation constraints.
+  expected_output: >
+    A JSON object with keys "technical_milestones" (array of strings), "timeline" (string), and "technical_constraints" (array of strings).
+  agent: software_engineer
+
+roadmapping_proposition_C:
+  description: >
+    Propose a roadmap with a market-oriented perspective, incorporating strategic milestones and performance indicators.
+  expected_output: >
+    A JSON object with keys "market_goals" (array of strings), "strategic_milestones" (array of strings), and "KPIs" (array of strings).
+  agent: business_strategist
+
+roadmapping_comparison:
+  description: >
+    Compare the different roadmap proposals to refine the overall planning.
+  expected_output: >
+    A JSON object with keys "common_milestones", "differences", and "refinement_recommendations", each an array of strings.
+  agent: design_facilitator
+
+roadmapping_synthesis:
+  description: >
+    Synthesize the roadmap proposals into a final, integrated roadmap that aligns technical, strategic, and operational perspectives.
+  expected_output: >
+    A final JSON object with keys "final_milestones", "final_timeline", and "final_resource_plan".
+  agent: design_facilitator
+
+# =========================
+# Phase: Documentation – Complete Documentation
+# =========================
+documentation_proposition_A:
+  description: >
+    Gather all deliverables from previous phases (Empathy, Definition, Ideation, Prototyping, Test & Feedback) into an initial documentation draft.
+  expected_output: >
+    A JSON object with a key "draft_sections" that maps to an array of strings (section names) and "content_summary" that maps each section name to a summary string.
+  agent: data_analyst
+
+documentation_proposition_B:
+  description: >
+    Enhance the initial documentation by adding narrative explanations, context, and a structured organization of the content.
+  expected_output: >
+    A JSON object with keys "narrative_explanations" (array of strings) and "organized_content" (an object where each key is a section name and its value is a detailed string).
+  agent: ux_designer
+
+documentation_proposition_C:
+  description: >
+    Integrate strategic and technical perspectives into the documentation, detailing recommendations and the final roadmap.
+  expected_output: >
+    A JSON object with keys "strategic_recommendations" (array of strings) and "technical_overview" (string), plus a key "final_roadmap" that references the integrated roadmap.
+  agent: business_strategist
+
+documentation_comparison:
+  description: >
+    Compare the different documentation proposals to identify redundancies, inconsistencies, and areas for harmonization.
+  expected_output: >
+    A JSON object with keys "redundancies" (array of strings), "inconsistencies" (array of strings), and "harmonization_suggestions" (array of strings).
+  agent: design_facilitator
+
+documentation_synthesis:
+  description: >
+    Synthesize and validate all documentation content into one final, coherent, and comprehensive document that captures the entire design thinking process.
+  expected_output: >
+    A final markdown file with the solution in the title and the complete documentation.
+  agent: design_facilitator
