@@ -2,14 +2,14 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from datetime import datetime
 import uuid
-from .utils import get_true_random
+from src.random_helper import get_true_random
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
 @CrewBase
-class IdeaGenerator:
+class CrewAIBrainstormer:
 	def __init__(self):
 		"""Mobile app idea generation team following Design Thinking methodology"""
 
@@ -310,7 +310,7 @@ class IdeaGenerator:
 		unique_id = str(uuid.uuid4())[:8]  # Using first 8 characters of UUID for brevity
 		return Crew(
 			agents=self.agents,
-			output_log_file=f"conversations/idea_generation_report_{timestamp}_{unique_id}.md",
+			output_log_file=f"conversations/idea_generation_report_{timestamp}_{unique_id}",
 			tasks=[
 				# Phase 1: Initial Research & Empathy with multi-turn feedback
 				self.initialization_proposition_a(),

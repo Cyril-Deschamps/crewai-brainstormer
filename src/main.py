@@ -2,8 +2,8 @@
 import sys
 import warnings
 import logging
-from idea_generator.crew import IdeaGenerator
 import os
+from CrewAIBrainstormer import CrewAIBrainstormer
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
@@ -30,18 +30,24 @@ def run():
     """
     Execute the script.
     """
-    logger.debug("Starting idea generation process...")
+    logger.debug("Starting crewai brainstorming process...")
     try:
-        logger.debug("Initializing idea generator...")
-        idea_generator = IdeaGenerator()
+        logger.debug("Initializing crewai brainstormer...")
+        idea_generator = CrewAIBrainstormer()
         os.makedirs("conversations", exist_ok=True)
-        logger.debug("Starting idea generator...")
+        logger.debug("Starting crewai brainstormer...")
         idea_generator.crew().kickoff()
-        logger.debug("Idea generation completed successfully!")
+        logger.debug("CrewAI brainstorming completed successfully!")
     except Exception as e:
         logger.error(f"An error occurred: {str(e)}")
         raise
     logger.debug("Process completed successfully!")
+
+def runAll():
+    """
+    Run all types of crew - Placeholder for potential future expansion
+    """
+    run()
 
 if __name__ == "__main__":
     run()

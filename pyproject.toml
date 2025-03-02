@@ -1,16 +1,19 @@
 [project]
-name = "idea_generator"
+name = "crewai-brainstormer"
 version = "0.1.0"
-description = "idea_generator using crewAI"
-authors = [{ name = "Your Name", email = "you@example.com" }]
+description = "A multi-agent system based on AI to follow the Design Thinking process of IBM. Using CrewAI and LLMs to generate innovative mobile app ideas."
+authors = [{ name = "Cyril Deschamps" }]
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "crewai[tools]>=0.102.0,<1.0.0"
+    "crewai>=0.11.0",
+    "crewai-tools==0.36.0",
+    "requests>=2.31.0"
 ]
 
 [project.scripts]
-run_crew = "idea_generator.main:run"
-run_all_crews = "idea_generator.main:runAll"
+run_crew = "src.main:run"
+run_parallel = "src.parallel_runner:main"
+init = "src.scripts.init:run_init"
 
 [build-system]
 requires = ["hatchling"]
@@ -18,3 +21,12 @@ build-backend = "hatchling.build"
 
 [tool.crewai]
 type = "crew"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src",
+    "README.md",
+]

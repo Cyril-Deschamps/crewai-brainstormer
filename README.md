@@ -1,4 +1,4 @@
-# 🚀 IdeaGenerator - Mobile App Ideas Generator with Design Thinking
+# 🚀 CrewAI-Brainstormer - Mobile App Ideas Generator with Design Thinking of IBM
 
 ![Design Thinking](https://img.shields.io/badge/Methodology-Design%20Thinking-blue)
 ![CrewAI](https://img.shields.io/badge/Framework-CrewAI-orange)
@@ -6,143 +6,110 @@
 
 ## 📋 Overview
 
-IdeaGenerator is a multi-agent system based on [crewAI](https://crewai.com) that simulates a complete IBM-style design thinking team to generate innovative mobile app ideas. The system orchestrates collaboration between different specialized agents, each bringing their own expertise, to produce complete and well-developed mobile app concepts.
+CrewAI-Brainstormer is a powerful application that leverages the crewAI framework to automate the design thinking process, from IBM, and generate innovative mobile app ideas. The system simulates a collaborative team of AI agents, each with specialized roles, working through a structured design thinking methodology to create compelling product concepts with Hills statements.
 
-### 🎯 Key Features
+CrewAI-Brainstormer autonomously creates innovative mobile app ideas by leveraging IBM's Enterprise Design Thinking toolkit with no user input required. The system generates random user personas, then simulates a complete design thinking workshop where AI agents collaborate through empathy mapping, scenario analysis, ideation, and solution refinement. The entire process - from random persona creation to final Hills statements - is handled by specialized AI agents working together to produce thoroughly researched mobile app concepts with clear value propositions.
 
-- **Complete Design Thinking Process Simulation** — Goes through all phases of design thinking: empathy, definition, ideation, conceptual prototyping, and testing.
-- **Specialized Agent Team** — 8 expert agents with distinct roles collaborate to generate and refine ideas.
-- **Random Persona Generation** — Uses random values to create realistic and varied personas.
-- **Structured Sequential Workflow** — 5-phase process with 30+ distinct tasks for thorough idea development.
-- **Detailed Reports** — Generates detailed reports documenting the entire creative process and its results.
-- **Multiple Launches** — Ability to launch multiple instances in parallel to generate various ideas simultaneously.
+Each generation process costs approximately $0.07 with Gemini 2.0 Flash.
 
-## 🧠 Multi-Agent Architecture
+## 🎯 Key Features
 
-IdeaGenerator employs a team of 8 specialized agents, each with distinct roles and responsibilities:
+- **Multi-Agent Architecture**: Utilizes specialized AI agents (UX Designer, Product Manager, Business Strategist, etc.)
+- **AI-Powered Design Thinking**: Automates the entire design thinking process from empathy mapping to solution design
+- **Structured Workflow**: Sequential process with validation, challenges, and refinement at each stage
+- **True Randomization**: Integrates with Random.org API for genuine randomization in persona creation
+- **Parallel Execution**: Run multiple idea generation instances simultaneously
+- **Comprehensive Outputs**: Generates complete reports with user personas, empathy maps, scenario maps, and Hills statements
 
-| 🤖 Agent                 | 🎭 Role                    | 🎯 Objective                                                       |
-| ------------------------ | -------------------------- | ------------------------------------------------------------------ |
-| **Design Facilitator**   | Lead Facilitator           | Orchestrate design thinking sessions and facilitate collaboration  |
-| **UX Designer**          | User Experience Specialist | Discover user behaviors and needs for human-centered solutions     |
-| **Product Manager**      | Product Strategist         | Align user needs with business objectives and market opportunities |
-| **Business Strategist**  | Commercial Analyst         | Evaluate commercial viability and potential of concepts            |
-| **Data Analyst**         | Insights Specialist        | Use data to guide design decisions and validate hypotheses         |
-| **Researcher**           | User Researcher            | Discover user needs and behaviors through research                 |
-| **Creative Facilitator** | Innovation Catalyst        | Inspire creative ideas and encourage unconventional thinking       |
-| **Innovation Coach**     | Change Agent               | Foster a culture of continuous innovation and adaptation           |
+## 🛠️ Requirements
 
-## 🛠️ Process Structure
+- Python >=3.10 and <3.13
+- [OpenRouter](https://openrouter.ai/) API key - A unified API that routes to various AI models including OpenAI, Anthropic, and others
+- Random.org API key - Required for creating truly random user personas and preventing repetitive outputs
 
-The system simulates a complete design thinking process in 5 sequential phases:
+## 🚀 Getting Started
 
-1. **Initial Research & Empathy** — Persona generation, empathy mapping
-2. **Current State Analysis** — Documentation of current workflows and pain points
-3. **Future State Vision** — Design of ideal and improved scenarios
-4. **Solution Ideation** — Creation of idea vignettes and solution narratives
-5. **Final Narrative** — Development of a coherent "Who-What-Wow" story for the solution
+### Setup
 
-## 📦 Installation
+1. Clone the repository:
 
-### Prerequisites
+   ```bash
+   git clone git@github.com:Cyril-Deschamps/crewai-brainstormer.git
+   cd crewai-brainstormer
+   ```
 
-- Python >=3.10 <3.13
-- [Make](https://www.gnu.org/software/make/) (optional, to use the Makefile)
+2. Use the Makefile to initialize the project:
 
-### Installation Steps
+   ```bash
+   make init
+   ```
 
-1. Clone this repository and navigate to the project directory:
+   This will install all required dependencies including crewAI and prepare the environment.
 
-```bash
-git clone https://github.com/your-username/idea_generator.git
-cd idea_generator
-```
+3. Configure your environment:
+   - Copy `.env.example` to `.env`
+   - Add your OpenRouter and Random.org API keys to the `.env` file
 
-2. Project initialization:
+### Running the Application
 
-- Quick method:
+To generate one idea:
 
 ```bash
-# Single command to install everything
-make init
-```
-
-- Manual method:
-
-```bash
-# Install pip dependencies
-pip install -r requirements.txt
-
-# Install crewai dependencies
-crewai install
-```
-
-3. Configure your environment variables in the `.env` file. You can use the OpenRouter API which allows using different LLMs:
-
-```
-AI_API_KEY=your_api_key
-AI_MODEL=your_preferred_model
-AI_BASE_URL=optional_base_url
-RANDOM_ORG_API_KEY=your_random_org_api_key (optional, for generating random values)
-```
-
-## 🚀 Usage
-
-### Launch Methods
-
-#### With Make (recommended)
-
-```bash
-# Launch a single instance
 make run
-
-# Launch multiple instances in parallel (example with 3)
-make run i=3
 ```
 
-#### With CrewAI CLI
+To run multiple generation processes in parallel:
 
 ```bash
-crewai run
+make run i=3  # Runs 3 instances in parallel
 ```
 
-The system will generate a detailed report in the `conversations/` folder with a timestamp, containing the entire design process and final results.
+### Viewing Results
 
-## 🛠 Customization
+To view all generated solution ideas and their Hills statements:
 
-- Modify `src/idea_generator/config/agents.yaml` to adjust agent roles and skills
-- Adapt `src/idea_generator/config/tasks.yaml` to modify tasks and prompts
-- Customize `src/idea_generator/crew.py` to change workflow or add new tasks
+```bash
+make solutions
+```
 
-## 🔄 Project Architecture
+## 🧠 How It Works
+
+The CrewAI-Brainstormer follows the IBM Design Thinking methodology to create innovative solutions:
+
+1. **Initialization**: Creates random personas with specific needs and problems
+2. **Empathy Mapping**: Develops deep understanding of user needs through simulated interviews
+3. **As-Is Scenario Mapping**: Documents current workflow and pain points
+4. **To-Be Scenario Mapping**: Envisions an ideal future state
+5. **Big Idea Vignettes**: Creates compelling narratives around the solution
+6. **Hills Statements**: Defines the "Who-What-Wow" of the solution
+
+Multiple AI agents collaborate through these stages with built-in challenges and verification steps to ensure quality.
+
+## 📂 Project Structure
 
 ```
-idea_generator/
+crewai-brainstormer/
 ├── src/
-│   └── idea_generator/
-│       ├── config/
-│       │   ├── agents.yaml    # Agent configuration
-│       │   └── tasks.yaml     # Task definition
-│       ├── tools/            # Custom tools
-│       ├── crew.py           # Team and task definition
-│       ├── main.py           # Entry point
-│       └── utils.py          # Utility functions
-├── conversations/           # Generated reports
-├── Makefile                 # Commands to initialize and run the project
-├── requirements.txt         # Python dependencies
-├── pyproject.toml           # Project configuration
-└── README.md                # This file
+│   ├── config/
+│   │   ├── agents.yaml  # Agent roles and personalities
+│   │   └── tasks.yaml   # Task definitions and workflows
+│   ├── CrewAIBrainstormer.py  # Main crewAI implementation
+│   ├── main.py         # Entry point
+│   ├── random_helper.py # Random.org integration and utilities
+├── scripts/            # Utility scripts for project management
+├── conversations/      # Output directory for reports
+├── .env.example       # Example environment variables
+├── Makefile           # Project automation
+├── pyproject.toml     # Project metadata and dependencies
+└── uv.lock            # Dependency lock file
 ```
 
-## 📄 License
+## 📝 License
 
-[MIT](LICENSE)
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🤝 Contributing
+## 🙏 Acknowledgements
 
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-## 📚 Resources
-
-- [CrewAI Documentation](https://docs.crewai.com)
-- [CrewAI GitHub Repository](https://github.com/joaomdmoura/crewai)
+- [crewAI](https://github.com/joaomdmoura/crewai) - The foundation of the multi-agent system framework
+- [IBM Design Thinking](https://www.ibm.com/design/thinking/) - Methodology inspiration
+- [Random.org](https://www.random.org/) - True randomization service

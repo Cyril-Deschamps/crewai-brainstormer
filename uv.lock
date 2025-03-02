@@ -553,9 +553,21 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/b0/15/47cb5ff6d5eb286377b312d8d9ed0a3c1472bef41ec90bafffaf285b80e3/crewai-0.102.0-py3-none-any.whl", hash = "sha256:af9ce144fa48cb0314946b509b0d415f01af3066fa2cfb42f27e05df3fb6539e", size = 240224 },
 ]
 
-[package.optional-dependencies]
-tools = [
+[[package]]
+name = "crewai-brainstormer"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "crewai" },
     { name = "crewai-tools" },
+    { name = "requests" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "crewai", specifier = ">=0.11.0" },
+    { name = "crewai-tools", specifier = "==0.36.0" },
+    { name = "requests", specifier = ">=2.31.0" },
 ]
 
 [[package]]
@@ -1364,17 +1376,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/02/e7/94f8232d4a74cc995
 wheels = [
     { url = "https://files.pythonhosted.org/packages/48/30/47d0bf6072f7252e6521f3447ccfa40b421b6824517f82854703d0f5a98b/hyperframe-6.1.0-py3-none-any.whl", hash = "sha256:b03380493a519fce58ea5af42e4a42317bf9bd425596f7a0835ffce80f1a42e5", size = 13007 },
 ]
-
-[[package]]
-name = "idea-generator"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "crewai", extra = ["tools"] },
-]
-
-[package.metadata]
-requires-dist = [{ name = "crewai", extras = ["tools"], specifier = ">=0.102.0,<1.0.0" }]
 
 [[package]]
 name = "idna"

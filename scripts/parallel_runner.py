@@ -36,7 +36,7 @@ def main():
     except (IndexError, ValueError):
         nb_instances = 1
 
-    print(f"🚀 Launching {nb_instances} instance(s) of the idea generator...")
+    print(f"🚀 Launching {nb_instances} instance(s) of the crewai brainstormer...")
 
     exit_codes = [None] * nb_instances
 
@@ -45,7 +45,7 @@ def main():
         instance_number = i + 1
         print(f"🔄 Launching instance {instance_number}...")
         proc = subprocess.Popen(
-            ["python", "src/idea_generator/main.py"],
+            ["python", "src/main.py"],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
