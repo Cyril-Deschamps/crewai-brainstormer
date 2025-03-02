@@ -1,12 +1,13 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from datetime import datetime
+import uuid
 from .utils import get_true_random
 
 @CrewBase
 class IdeaGenerator:
 	def __init__(self, model, api_key, base_url):
-		"""Équipe de génération d'idées d'applications mobiles suivant le Design Thinking"""
+		"""Mobile app idea generation team following Design Thinking methodology"""
 		self.llm = LLM(
 			model=model,
 			api_key=api_key,
@@ -299,11 +300,12 @@ class IdeaGenerator:
 
 	@crew
 	def crew(self) -> Crew:
-		"""Crée l'équipe de génération d'idées"""
+		"""Creates the idea generation team"""
 		timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+		unique_id = str(uuid.uuid4())[:8]  # Using first 8 characters of UUID for brevity
 		return Crew(
 			agents=self.agents,
-			output_log_file=f"logs/idea_generation_report_{timestamp}.md",
+			output_log_file=f"logs/idea_generation_report_{timestamp}_{unique_id}.md",
 			tasks=[
 				# Phase 1: Initial Research & Empathy with multi-turn feedback
 				self.initialization_proposition_a(),

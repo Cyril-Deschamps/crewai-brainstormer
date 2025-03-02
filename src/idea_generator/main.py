@@ -12,7 +12,7 @@ load_dotenv()
 
 def setup_logger() -> logging.Logger:
     """
-    Configure le logger principal.
+    Configure the main logger.
     """
     logger = logging.getLogger("main")
     handler = logging.StreamHandler(sys.stdout)
@@ -26,18 +26,18 @@ def setup_logger() -> logging.Logger:
     logger.propagate = False
     return logger
 
-# Configuration du logger principal
+# Configure the main logger
 logger = setup_logger()
 
 def run():
     """
-    Exécute le script.
+    Execute the script.
     """
-    logger.info("Démarrage du processus de génération d'idées...")
+    logger.debug("Starting idea generation process...")
     try:
         api_key = os.environ.get("AI_API_KEY")
         if not api_key:
-            raise ValueError("Aucune clé API trouvée dans les variables d'environnement (AI_API_KEY)")
+            raise ValueError("No API key found in environment variables (AI_API_KEY)")
 
         model = os.environ.get("AI_MODEL")
         base_url = os.environ.get("AI_BASE_URL")
@@ -47,10 +47,13 @@ def run():
             api_key=api_key,
             base_url=base_url,
         )
-        logger.info("Démarrage du générateur d'idées...")
+        logger.debug("Starting idea generator...")
         result = idea_generator.crew().kickoff()
-        logger.info("Génération d'idées terminée avec succès!")
+        logger.debug("Idea generation completed successfully!")
     except Exception as e:
-        logger.error(f"Une erreur est survenue: {str(e)}")
+        logger.error(f"An error occurred: {str(e)}")
         raise
-    logger.info("Processus terminé avec succès!")
+    logger.debug("Process completed successfully!")
+
+if __name__ == "__main__":
+    run()
