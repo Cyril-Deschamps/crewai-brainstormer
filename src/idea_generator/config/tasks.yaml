@@ -1,656 +1,1011 @@
-# =========================
-# Phase: Autonomous Initialization
-# =========================
+# Autonomous Initialization – Generate a Unique Persona with a Problem Statement
 initialization_proposition_A:
   description: >
-    You are in the Autonomous Initialization phase. Generate an initial set of fictitious personas using general market trends and data.
-    This establishes a baseline user context for the entire design thinking process.
+    Generate a fully randomized fictitious persona to serve as a starting point for our design thinking session.
+    The persona should be realistic, diverse, and representative of various life experiences while avoiding extreme edge cases or clichés.
+
+    Include the following attributes:
+      - "name": A randomly generated name.
+      - "age_range": A plausible age range (e.g., "25-30", "40-45").
+      - "lifestyle": A brief description of their everyday context (e.g., busy parent, urban dweller, digital native, etc.).
+      - "behavior": A brief but insightful description of their personality, habits, or lifestyle in everyday contexts.
+      - "pain_points": A list (3-5) of specific, concrete frustrations, obstacles, or challenges they regularly encounter in their daily life (avoid focusing solely on work-related issues).
+      - "problem_statement": A one-sentence description (max 10-15 words) of a significant challenge this persona faces.
+        The issue should be meaningful, relatable, and not overly generic or mainstream (avoid problem concerning fitness and food and time management). A good example can be : "Find a friend and challenge yourself to move forward faster with daily tasks and work to stop procrastinating." or also "Choose my outfits more easily and have an instant opinion."
+        Assume that this is a problem that the persona has already tried to solve using a mobile application, but it didn't work.
+
+    Guidelines:
+      - Avoid generating stereotypical or overly niche profiles—aim for a broad variety of personas.
+      - Ensure diversity in age, lifestyle, and everyday challenges.
+      - The problem statement should be clear, compelling, and grounded in real-world struggles.
+      - Introduce variability in responses to prevent repeated patterns.
+      
+    # Adding contextual dynamics
+    Situational Context:
+      - Consider a specific time context (morning rush, evening leisure, weekend activity)
+      - Add environmental factors that might influence this persona's behavior
+      - Include social dynamics that affect how they interact with potential solutions
   expected_output: >
-    A JSON array of persona objects. Each object must include keys "name", "age_range", "occupation", "behavior", and "pain_points".
-    Example: [ { "name": "Persona 1", "age_range": "25-34", "occupation": "Professional", "behavior": "Tech-savvy", "pain_points": ["complex UI", "lack of personalization"] }, ... ]
+    A structured JSON object in the following format:
+    {
+      "name": "string",
+      "age_range": "string",
+      "lifestyle": "string",
+      "behavior": "string",
+      "pain_points": ["string", "string", "string"],
+      "problem_statement": "string",
+      "context": {
+        "time_of_day": "string",
+        "environment": "string",
+        "social_factors": "string"
+      }
+    }
   agent: researcher
 
-initialization_proposition_B:
+# Added Multi-Turn Interaction - Challenge the initial persona
+initialization_challenge:
   description: >
-    In the Autonomous Initialization phase, propose a global context for the project by identifying potential usage scenarios and environments.
-  expected_output: >
-    A JSON object with keys "usage_scenarios" and "environmental_context". 
-    "usage_scenarios" should be an array of strings, and "environmental_context" should be a descriptive string.
-    Example: { "usage_scenarios": ["on-the-go", "at home", "in office"], "environmental_context": "A dynamic digital ecosystem with evolving user needs" }
-  agent: ux_designer
+    Review the persona created in the previous task and identify potential assumptions, biases, or gaps in the profile that might limit our understanding.
 
-initialization_proposition_C:
+    Consider:
+    - Are there unstated needs beneath the surface problem?
+    - What assumptions might we be making about this persona?
+    - Are there contradictions or inconsistencies in the profile that need clarification?
+    - How might different contexts (cultural, economic, technological) affect this persona's relationship with the problem?
+
+    Challenge at least three aspects of the initial persona in a constructive way. Your goal is not to dismiss the work, but to enrich and deepen our understanding by questioning initial assumptions.
+  expected_output: >
+    A structured JSON object in the following format:
+    {
+      "identified_assumptions": ["string", "string", "string"],
+      "proposed_revisions": ["string", "string", "string"],
+      "additional_contexts": ["string", "string", "string"]
+    }
+  agent: data_analyst
+
+# Persona Refinement - Incorporating feedback
+initialization_refinement:
   description: >
-    Add a strategic perspective by integrating market opportunities and potential challenges related to the project context.
-  expected_output: >
-    A JSON object with keys "market_opportunities" and "potential_challenges". Each key should map to an array of strings.
-    Example: { "market_opportunities": ["growing mobile adoption", "emerging tech trends"], "potential_challenges": ["high competition", "user adaptation issues"] }
-  agent: product_manager
+    Based on the initial persona profile and the challenges raised, create a refined, more nuanced persona that addresses the identified gaps and assumptions.
 
-initialization_comparison:
-  description: >
-    Compare the outputs from propositions A, B, and C. Identify convergences, divergences, and key areas of alignment.
+    In your refinement:
+    - Address each challenge in a thoughtful way
+    - Deepen the persona's complexity without losing clarity
+    - Deliberately include a minor contradiction or tension in the persona's needs (to make them more realistic)
+    - Add specific contextual details that would impact how they interact with potential solutions
   expected_output: >
-    A JSON object with keys "convergence", "divergence", and "recommendations". Each should be an array of strings.
-    Example: { "convergence": ["consistent need for personalization"], "divergence": ["different usage scenarios highlighted"], "recommendations": ["refine personas based on scenario insights"] }
-  agent: design_facilitator
+    A structured JSON object containing the refined persona profile with all original fields plus:
+    {
+      "contradictions": "string describing a realistic tension in their needs",
+      "contextual_factors": ["string", "string", "string"]
+    }
+  agent: researcher
 
-initialization_synthesis:
-  description: >
-    Synthesize all the information gathered to establish a clear and inspiring starting framework for the project, including personas, context, and strategic insights.
-  expected_output: >
-    A single JSON object summarizing the initial context with keys "final_personas", "final_context", and "final_strategic_insights", where:
-    - "final_personas" is an array of persona objects,
-    - "final_context" is a descriptive string,
-    - "final_strategic_insights" is an array of strings.
-  agent: design_facilitator
-
-# =========================
-# Phase: Empathy – Empathy Map
-# =========================
+# Empathy Map – Gather User Insights
 empathy_map_collect_A:
   description: >
-    In the Empathy phase, conduct simulated user interviews to gather qualitative insights on what users say, think, feel, and do,
-    focusing on their frustrations and motivations.
-  expected_output: >
-    A JSON array of strings, each representing a key insight from user interviews.
-  agent: researcher
+    Based on the given persona and its simplified problem_statement, simulate a brief but insightful user interview.
+    Capture at least five key statements reflecting what the persona **says, thinks, feels, and does** when experiencing the problem.
 
-empathy_map_collect_B:
-  description: >
-    Complement the interview data by observing user behaviors in simulated environments, noting additional attitudes and actions.
+    **Encourage responses that include specific, measurable details and real-life examples, avoiding generic or overly idealized statements. The tone should remain authentic and fact-based.**
+
+    # Adding variability in tone and detail
+    Your interview should:
+    - Include one answer where the persona is clearly frustrated and emotional
+    - Include one answer where the persona initially misunderstands your question (showing realistic miscommunication)
+    - Include one answer that reveals an unexpected insight or seemingly contradictory need
+    - Vary the level of detail between responses (some detailed, some more vague)
+
+    # Add situational context dynamics
+    - Set the interview in a specific environment (coffee shop, home office, public transport)
+    - Reference a recent event or circumstance that has made their problem more acute
+    - Introduce an external factor that occasionally affects their interaction with the problem
   expected_output: >
-    A JSON array of strings, each representing an insight from direct user behavior observations.
+    A structured JSON object in the following format:
+    {
+      "interview_context": {
+        "location": "string",
+        "recent_trigger": "string",
+        "external_factor": "string"
+      },
+      "says": ["string", "string"],
+      "thinks": ["string", "string"],
+      "feels": ["string", "string"],
+      "does": ["string", "string"],
+      "unexpected_insight": "string",
+      "miscommunication": {
+        "question": "string",
+        "initial_response": "string",
+        "clarified_response": "string"
+      }
+    }
   agent: ux_designer
 
-empathy_map_collect_C:
+# Added Cross-Verification Task
+empathy_map_verification:
   description: >
-    Provide additional insights from secondary data and trend analyses to broaden the user perspective.
+    Critically review the empathy map interview data collected. As a data analyst, your role is to verify the internal consistency of the findings and highlight any potential biases or misleading patterns in the data.
+
+    In your assessment:
+    - Identify any statements that seem inconsistent with the persona profile
+    - Point out where interviewer bias might have influenced the responses
+    - Highlight any areas where more data would be valuable
+    - Note if cultural or contextual factors might be affecting the interpretation of responses
+    - Suggest at least one specific follow-up question to clarify ambiguous responses
+
+    Remember to maintain a balanced perspective - your goal is to strengthen the research, not dismiss it.
   expected_output: >
-    A JSON array of strings detailing supplementary insights from market research and contextual analysis.
+    A structured JSON object in the following format:
+    {
+      "consistency_issues": ["string", "string"],
+      "potential_biases": ["string", "string"],
+      "data_gaps": ["string", "string"],
+      "contextual_factors": ["string", "string"],
+      "follow_up_questions": ["string", "string"]
+    }
   agent: data_analyst
+
+# Add Error Correction and Iteration
+empathy_map_collect_B:
+  description: >
+    Based on the persona profile and the data validation feedback, conduct a follow-up observation session to address the identified gaps and inconsistencies. This time, focus on **observing** the persona in their natural environment rather than interviewing them.
+
+    In your observation:
+    - Focus specifically on the areas identified as inconsistent or requiring more data
+    - Document any behaviors that contradict what the persona "said" versus what they actually "do"
+    - Note environmental or contextual factors that weren't previously considered
+    - Include at least one unexpected behavior that provides new insight
+
+    # Introduce a situational variable
+    During your observation, an unexpected event occurs (choose something contextually appropriate) that reveals how the persona handles disruption or changes to their routine.
+  expected_output: >
+    A structured JSON object in the following format:
+    {
+      "observation_setting": "string",
+      "observed_behaviors": ["string", "string", "string"],
+      "contradictions_found": ["string", "string"],
+      "new_contextual_factors": ["string", "string"],
+      "unexpected_event": {
+        "description": "string",
+        "persona_reaction": "string",
+        "insight_gained": "string"
+      }
+    }
+  agent: researcher
 
 empathy_map_comparison:
   description: >
-    Compare the data from tasks A, B, and C. Identify converging themes and discrepancies across the different data sources.
+    Analyze and compare the insights gathered from the interview and the observations.
+    Identify recurring themes, patterns, and notable contradictions.
+
+    Structure the comparison as follows:
+      - "common_insights": A list of key themes, behaviors, or concrete pain points that appear in both the interview and observations.
+      - "differences": A list of insights where the interview and observations diverge, highlighting discrepancies or missing details.
+      
+    **Ensure that the analysis is factual and specific, avoiding hyperbolic language.**
+
+    Guidelines:
+      - Focus on patterns related to emotions, motivations, needs, and challenges.
+      - Ensure insights are well-structured and avoid overly generic points.
+      - When applicable, explain why certain differences might exist (e.g., context, bias, external factors).
   expected_output: >
-    A JSON object with keys "common_insights" and "differences", each an array of strings.
-    Example: { "common_insights": ["users dislike complex navigation"], "differences": ["observation highlights curiosity about features not mentioned in interviews"] }
+    A structured JSON object with two keys:
+    {
+      "common_insights": ["string", "string", "string"],
+      "differences": ["string", "string", "string"]
+    }
   agent: design_facilitator
 
 empathy_map_synthesis:
   description: >
-    Synthesize all compared data into a consolidated Empathy Map that outlines the key user needs, frustrations, and motivations.
-  expected_output: >
-    A JSON object representing the final Empathy Map with keys "say", "think", "feel", and "do", each mapping to an array of strings.
-  agent: design_facilitator
+    Generate a synthesized Empathy Map by consolidating insights from multiple sources into a single, coherent view.
+    The Empathy Map should reflect the persona's perspective across four dimensions:
+      - "say": Direct or paraphrased statements the persona verbalizes.
+      - "think": Internal thoughts, concerns, or beliefs, including those not openly expressed.
+      - "feel": Emotional responses, underlying motivations, and frustrations.
+      - "do": Observable actions, behaviors, or habits in daily life.
+      
+    **Ensure that the synthesis includes specific, authentic details that can inform the design of a pragmatic, single-purpose mobile app.
+    Avoid overly idealized or vague language.**
 
-# =========================
-# Phase: Empathy – Hopes and Fears
-# =========================
-hopes_fears_collect_A:
-  description: >
-    Generate an initial list of users' hopes and fears based on insights collected from simulated interviews.
+    Each key must map to an array containing at least three distinct and concise insights.
+    Ensure the synthesis maintains clarity and avoids redundancy.
   expected_output: >
-    A JSON object with keys "hopes" and "fears", each mapping to an array of strings.
-  agent: researcher
-
-hopes_fears_collect_B:
-  description: >
-    Propose an alternative list that includes creative perspectives and additional insights from user observations.
-  expected_output: >
-    A JSON object with keys "hopes" and "fears", each mapping to an array of strings, highlighting innovative perspectives.
-  agent: creative_facilitator
-
-hopes_fears_collect_C:
-  description: >
-    Supplement the lists with quantitative analysis of qualitative data to validate user emotions.
-  expected_output: >
-    A JSON object with keys "validated_hopes" and "validated_fears", each an array of strings.
+    A structured JSON object with the following format:
+    {
+      "say": ["string", "string", "string"],
+      "think": ["string", "string", "string"],
+      "feel": ["string", "string", "string"],
+      "do": ["string", "string", "string"]
+    }
   agent: data_analyst
 
-hopes_fears_comparison:
-  description: >
-    Compare the lists from tasks A, B, and C to identify common themes and variances.
-  expected_output: >
-    A JSON object with keys "common_hopes", "common_fears", and "variances", each an array of strings.
-  agent: design_facilitator
-
-hopes_fears_synthesis:
-  description: >
-    Synthesize the compared data into a final, validated list of user hopes and fears.
-  expected_output: >
-    A JSON object with keys "final_hopes" and "final_fears", each mapping to an array of strings.
-  agent: design_facilitator
-
-# =========================
-# Phase: Empathy – Stakeholder Map
-# =========================
-stakeholder_map_collect_A:
-  description: >
-    Identify the main stakeholders based on contextual analysis of the project.
-  expected_output: >
-    A JSON array of objects, each with keys "stakeholder_name" and "role".
-  agent: product_manager
-
-stakeholder_map_collect_B:
-  description: >
-    Enrich the stakeholder list by adding a commercial and strategic perspective on influential actors.
-  expected_output: >
-    A JSON array of objects, each with keys "stakeholder_name", "role", and "strategic_importance" (as a string).
-  agent: business_strategist
-
-stakeholder_map_collect_C:
-  description: >
-    Validate and adjust the stakeholder list based on additional user and field insights.
-  expected_output: >
-    A JSON array of objects, each with keys "stakeholder_name", "role", and "validated" (boolean).
-  agent: researcher
-
-stakeholder_map_comparison:
-  description: >
-    Compare the stakeholder lists from tasks A, B, and C to highlight commonalities and discrepancies.
-  expected_output: >
-    A JSON object with keys "common_stakeholders" and "discrepancies", each mapping to an array of strings.
-  agent: design_facilitator
-
-stakeholder_map_synthesis:
-  description: >
-    Consolidate all information to create a final, comprehensive Stakeholder Map.
-  expected_output: >
-    A JSON array of stakeholder objects with unified keys "stakeholder_name", "role", "strategic_importance", and "validated".
-  agent: design_facilitator
-
-# =========================
-# Phase: Definition – Needs Statements
-# =========================
-needs_statements_proposition_A:
-  description: >
-    Based on the Empathy Map and Hopes & Fears, propose an initial set of user needs statements.
-  expected_output: >
-    A JSON array of strings, each representing a clear and concise need statement.
-  agent: ux_designer
-
-needs_statements_proposition_B:
-  description: >
-    Propose an alternative or additional set of need statements using contextual and observational insights.
-  expected_output: >
-    A JSON array of additional need statements (strings) that complement the initial proposals.
-  agent: researcher
-
-needs_statements_proposition_C:
-  description: >
-    Propose need statements that incorporate a strategic and commercial perspective.
-  expected_output: >
-    A JSON array of need statements (strings) focusing on business and market objectives.
-  agent: product_manager
-
-needs_statements_comparison:
-  description: >
-    Compare the need statements from propositions A, B, and C to determine convergences and divergences.
-  expected_output: >
-    A JSON object with keys "common_needs" and "unique_needs", each an array of strings.
-  agent: design_facilitator
-
-needs_statements_synthesis:
-  description: >
-    Synthesize and validate the need statements into a final, coherent document.
-  expected_output: >
-    A JSON array of finalized need statements (strings) that will guide the ideation phase.
-  agent: design_facilitator
-
-# =========================
-# Phase: Definition – Assumptions and Questions
-# =========================
-assumptions_questions_proposition_A:
-  description: >
-    Propose an initial list of assumptions and questions based on collected insights and identified user needs.
-  expected_output: >
-    A JSON object with keys "assumptions" and "questions", each mapping to an array of strings.
-  agent: business_strategist
-
-assumptions_questions_proposition_B:
-  description: >
-    Propose additional assumptions and questions with deeper insights from detailed user data.
-  expected_output: >
-    A JSON object with keys "assumptions" and "questions", each an array of strings.
-  agent: researcher
-
-assumptions_questions_proposition_C:
-  description: >
-    Propose technical and operational questions focusing on feasibility and implementation constraints.
-  expected_output: >
-    A JSON object with keys "technical_questions" and "operational_questions", each mapping to an array of strings.
-  agent: software_engineer
-
-assumptions_questions_comparison:
-  description: >
-    Compare the assumptions and questions from propositions A, B, and C to find common themes and critical divergences.
-  expected_output: >
-    A JSON object with keys "common_items", "differences", and "recommendations", each an array of strings.
-  agent: design_facilitator
-
-assumptions_questions_synthesis:
-  description: >
-    Consolidate and validate the final list of assumptions and questions to form a guiding document for the project.
-  expected_output: >
-    A JSON object with keys "final_assumptions" and "final_questions", each mapping to an array of strings.
-  agent: design_facilitator
-
-# =========================
-# Phase: Ideation – Big Idea Vignettes
-# =========================
-big_idea_vignettes_proposition_A:
-  description: >
-    Propose an initial narrative idea for the solution, such as integrating contextual intelligence for personalized user experience.
-  expected_output: >
-    A JSON string describing the initial narrative idea with details on user benefits and core features.
-  agent: creative_facilitator
-
-big_idea_vignettes_proposition_B:
-  description: >
-    Propose an alternative narrative idea, for example, an interactive platform designed to boost user engagement.
-  expected_output: >
-    A JSON string describing the alternative narrative, emphasizing interactivity and engagement.
-  agent: innovation_coach
-
-big_idea_vignettes_proposition_C:
-  description: >
-    Propose a third narrative that integrates UX elements to further enhance the user experience.
-  expected_output: >
-    A JSON string describing a complementary narrative that adds detailed UX improvements.
-  agent: ux_designer
-
-big_idea_vignettes_comparison:
-  description: >
-    Compare the three narrative proposals to evaluate strengths, weaknesses, and integration potential.
-  expected_output: >
-    A JSON object with keys "pros", "cons", and "integration_recommendations", each mapping to an array of strings.
-  agent: design_facilitator
-
-big_idea_vignettes_synthesis:
-  description: >
-    Synthesize the compared narratives into a final consolidated version that integrates the best aspects of each proposal.
-  expected_output: >
-    A final JSON string containing the consolidated narrative description (vignette) of the solution.
-  agent: design_facilitator
-
-# =========================
-# Phase: Ideation – Writing Hills
-# =========================
-writing_hills_proposition_A:
-  description: >
-    Propose a visual and narrative representation of the objectives and challenges to overcome in the solution journey.
-  expected_output: >
-    A JSON object with keys "objectives", "challenges", and "narrative", where "objectives" and "challenges" are arrays of strings and "narrative" is a descriptive string.
-  agent: ux_designer
-
-writing_hills_proposition_B:
-  description: >
-    Propose an alternative representation using innovative visual metaphors to express project challenges.
-  expected_output: >
-    A JSON object with keys "objectives", "visual_metaphors", and "narrative", formatted as above.
-  agent: innovation_coach
-
-writing_hills_proposition_C:
-  description: >
-    Propose a version that integrates strategic and business goals into the narrative representation.
-  expected_output: >
-    A JSON object with keys "objectives", "business_goals", and "narrative", where "business_goals" is an array of strings.
-  agent: product_manager
-
-writing_hills_comparison:
-  description: >
-    Compare the different Writing Hills proposals to identify strengths and areas for improvement.
-  expected_output: >
-    A JSON object with keys "common_elements", "differences", and "suggestions", each an array of strings.
-  agent: design_facilitator
-
-writing_hills_synthesis:
-  description: >
-    Synthesize the proposals into a final, cohesive Writing Hills representation that guides the solution development.
-  expected_output: >
-    A JSON object with keys "final_objectives", "final_challenges", "final_visuals", and "final_narrative", each mapping to appropriate arrays or strings.
-  agent: design_facilitator
-
-# =========================
-# Phase: Ideation – Prioritization
-# =========================
-prioritization_proposition_A:
-  description: >
-    Propose an initial ranking of ideas based on their potential impact and feasibility, including defined evaluation criteria.
-  expected_output: >
-    A JSON array of objects. Each object should include keys "idea", "impact_score", "feasibility_score", and "justification".
-  agent: business_strategist
-
-prioritization_proposition_B:
-  description: >
-    Propose an alternative ranking focusing on the user experience aspect of each idea.
-  expected_output: >
-    A JSON array of objects similar to proposition A, but with emphasis on a "ux_score" instead of "impact_score".
-  agent: ux_designer
-
-prioritization_proposition_C:
-  description: >
-    Propose a complementary ranking that emphasizes creative innovation and potential breakthrough impact.
-  expected_output: >
-    A JSON array of objects with keys "idea", "innovation_score", "feasibility_score", and "justification".
-  agent: creative_facilitator
-
-prioritization_comparison:
-  description: >
-    Compare the three proposed rankings to identify convergences and differences, and refine the evaluation criteria.
-  expected_output: >
-    A JSON object with keys "common_rankings", "differences", and "final_recommendations", each an array of strings.
-  agent: design_facilitator
-
-prioritization_synthesis:
-  description: >
-    Synthesize the comparison into a final, consensus-based prioritized list of ideas.
-  expected_output: >
-    A final JSON array of objects (as in the individual rankings) that represents the consensus prioritized ranking.
-  agent: design_facilitator
-
-# =========================
-# Phase: Prototyping & Scenario Mapping – As-Is Scenario Map
-# =========================
+# As-Is Scenario Map – Document the Current State
 asis_scenario_map_proposition_A:
   description: >
-    Propose an initial mapping of the current user experience, identifying key pain points and friction areas.
+    Based on the persona's problem_statement and empathy insights, generate a detailed, step-by-step breakdown of the actions the persona currently takes to solve their problem.
+    Each step should clearly describe what the persona does and include at least one specific pain point, with measurable details when possible. 
+
+    **Emphasize areas where a simple, viral mobile solution focused on one key functionality could streamline these steps and reduce user frustration.
+    Avoid suggesting multi-functional, all-in-one solutions. Also, reference realistic constraints or trade-offs.**
+
+    Guidelines:
+      - Maintain logical sequencing of steps from the persona's perspective.
+      - Avoid assumptions beyond the provided insights.
+      - Ensure each step is actionable and specific.
+      - Each step must include at least one corresponding pain point that explains why the current approach is inefficient or frustrating.
   expected_output: >
-    A JSON object representing the "As-Is" map with keys "steps" (array of strings) and "pain_points" (array of strings).
+    A structured JSON object with the following format:
+    {
+      "steps": [
+        {"step": "string", "pain_points": ["string", "string"]},
+        {"step": "string", "pain_points": ["string"]}
+      ]
+    }
   agent: ux_designer
 
 asis_scenario_map_proposition_B:
   description: >
-    Propose an alternative mapping based on interview and observational data.
-  expected_output: >
-    A JSON object with the same structure as proposition A, highlighting additional or alternative pain points.
-  agent: researcher
+    Using insights from additional user research, generate an alternative mapping of the current workflow.
+    This workflow outlines the use of an existing mobile app available on the Play Store or App Store as a potential task management solution.
+    Although this app does not fully align with the persona's specific needs. Identify any additional steps or concrete pain points that were not captured initially.
 
-asis_scenario_map_proposition_C:
-  description: >
-    Propose adjustments incorporating strategic and business insights to enrich the mapping.
+    **Focus on identifying friction points that a simple, single-purpose mobile app could resolve, and mention realistic user constraints that a solution should consider.
+    Avoid suggestions that require bundling unrelated functionalities.**
+
+    Guidelines:
+    - Clearly outline each step in the revised workflow.
+    - Highlight new or previously overlooked pain points with specific examples.
+    - Maintain consistency with the overall process while proposing improvements.
   expected_output: >
-    A JSON object similar to the previous ones but including an additional key "business_insights" (array of strings).
-  agent: product_manager
+    A structured JSON object with the following format:
+    {
+      "steps": ["string", "string", "string"],
+      "pain_points": ["string", "string", "string"]
+    }
+  agent: researcher
 
 asis_scenario_map_comparison:
   description: >
-    Compare the three mappings to identify common issues and discrepancies in the current user experience.
+    Analyze and compare the outputs of the two As-Is process maps. Identify and highlight:
+      - Common steps present in both maps.
+      - Key differences in process flow, structure, or execution.
+      - Specific pain points observed in either or both maps.
+      - Opportunities for improvement based on concrete inefficiencies or inconsistencies.
+      
+    Provide a structured summary in three arrays:
+      - "common_steps": A list of process steps present in both maps.
+      - "differences": A list of variations or gaps between the two maps.
   expected_output: >
-    A JSON object with keys "common_steps", "differences", and "recommendations", each an array of strings.
-  agent: design_facilitator
+    A structured JSON object with the following format:
+    {
+      "common_steps": ["string", "string", ...],
+      "differences": ["string", "string", ...]
+    }
+  agent: product_manager
 
 asis_scenario_map_synthesis:
   description: >
-    Synthesize the proposals into a final, validated "As-Is" scenario map.
+    Synthesize multiple compared As-Is scenario maps into a single, comprehensive, and validated current-state map.
+    The final map should clearly outline:
+      - The sequential "steps" involved in the persona's journey, ensuring logical flow.
+      - The "pain_points" encountered by the persona, consolidated and categorized to reflect recurring challenges or critical blockers.
+
+    Key considerations:
+      - Reflect all relevant insights from previous tasks accurately.
+      - Maintain clarity and avoid redundant information.
+      - Prioritize pain points based on frequency and impact.
+      - Preserve logical order and dependencies.
   expected_output: >
-    A final JSON object representing the comprehensive "As-Is" map with keys "steps", "pain_points", and "business_insights".
+    A structured JSON object with the following format:
+    {
+      "steps": ["step_1", "step_2", "step_3", ...],
+      "pain_points": ["pain_point_1", "pain_point_2", "pain_point_3", ...]
+    }
   agent: design_facilitator
 
-# =========================
-# Phase: Prototyping & Scenario Mapping – To-Be Scenario Map
-# =========================
+# To-Be Scenario Map & Big ideas – Design the Future State
 tobe_scenario_map_proposition_A:
   description: >
-    Propose an initial vision of the ideal future user experience after implementing the solution.
+    Using the final As-Is Scenario Map as a reference, propose an alternative future state narrative for a mobile application solution that significantly enhances the user experience and effectively addresses the persona's problem. The solution must:
+       - Focus on a single, clearly defined issue without bundling unrelated functionalities.
+       - Be designed for broad adoption by B2C users with a cost-effective and scalable technology stack (e.g., a simple backend, no AI).
+       - Address identified pain points with concrete, measurable improvements.
+       - Introduce a fresh, innovative approach with features or improvements not already offered by existing solutions on App store and Play store.
+       - Incorporate inherent mechanisms for viral growth through intuitive design and word-of-mouth marketing.
+       - Target market not too saturated and not too niche.
+     Deliverables:
+       - "real_world_example": Identify an existing mobile application that partially addresses the same problem, including its name, a brief description, and key features.
+       - "current_limitations": List the main limitations or pain points of the identified application.
+       - "improved_steps": Provide a structured list of refined steps that streamline the user journey, eliminate friction, and improve engagement.
+       - "ux_enhancements": Detail key UX improvements that enhance usability, accessibility, and customer satisfaction.
+       - Explain how the proposed solution offers clear innovation and a competitive advantage over existing solutions on App store and Play store.
+     Note:
+       - The narrative should be detailed and authentic rather than overly promotional.
+       - The solution must be B2C-focused and built using simple, proven, and cost-effective technologies, enabling an MVP launch on a lean startup budget.
+       - Avoid niche topics unless they address broad, everyday needs.
   expected_output: >
-    A JSON object representing the "To-Be" map with keys "improved_steps" (array of strings) and "expected_benefits" (array of strings).
+    {
+      "improved_steps": ["Step 1 description", "Step 2 description", "..."],
+      "expected_benefits": ["Benefit of Step 1", "Benefit of Step 2", "..."]
+    }
   agent: innovation_coach
 
 tobe_scenario_map_proposition_B:
   description: >
-    Propose an alternative "To-Be" map focusing on UX improvements.
+    Using the final As-Is Scenario Map as a reference and the solution found previously, propose an alternative future state narrative for a mobile application solution that significantly enhances the user experience and effectively addresses the persona's problem. The solution must:
+      - Focus on a single, clearly defined issue without bundling unrelated functionalities.
+      - Be designed for broad adoption by B2C users with a cost-effective and scalable technology stack (e.g., a simple backend, no AI).
+      - Address identified pain points with concrete, measurable improvements.
+      - Introduce a fresh, innovative approach with features or improvements not already offered by existing solutions on App store and Play store.
+      - Incorporate inherent mechanisms for viral growth through intuitive design and word-of-mouth marketing.
+      - Target market not too saturated and not too niche.
+    Deliverables:
+      - "real_world_example": Identify an existing mobile application that partially addresses the same problem, including its name, a brief description, and key features.
+      - "current_limitations": List the main limitations or pain points of the identified application.
+      - "improved_steps": Provide a structured list of refined steps that streamline the user journey, eliminate friction, and improve engagement.
+      - "ux_enhancements": Detail key UX improvements that enhance usability, accessibility, and customer satisfaction.
+      - Explain how the proposed solution offers clear innovation and a competitive advantage over existing solutions on App store and Play store.
+    Note:
+      - The narrative should be detailed and authentic rather than overly promotional.
+      - The solution must be B2C-focused and built using simple, proven, and cost-effective technologies, enabling an MVP launch on a lean startup budget.
+      - Avoid niche topics unless they address broad, everyday needs.
   expected_output: >
-    A JSON object with keys "improved_steps" and "ux_enhancements" (array of strings).
+    {
+      "real_world_example": {
+        "name": "string",
+        "description": "string",
+        "key_features": ["string", "string"]
+      },
+      "current_limitations": ["string", "string", "string"],
+      "improved_steps": ["Step 1", "Step 2", "Step 3"],
+      "ux_enhancements": ["Enhancement 1", "Enhancement 2", "Enhancement 3"]
+    }
   agent: ux_designer
 
 tobe_scenario_map_proposition_C:
   description: >
-    Propose a complementary vision incorporating creative and disruptive elements.
+    Using the final As-Is Scenario Map as a reference and the solutions found previously, propose an alternative future state narrative for a mobile application solution that significantly enhances the user experience and effectively addresses the persona's problem. The solution must:
+      - Focus on a single, clearly defined issue without bundling unrelated functionalities.
+      - Be designed for broad adoption by B2C users with a cost-effective and scalable technology stack (e.g., a simple backend, no AI).
+      - Address identified pain points with concrete, measurable improvements.
+      - Introduce a fresh, innovative approach with features or improvements not already offered by existing solutions on App store and Play store.
+      - Incorporate inherent mechanisms for viral growth through intuitive design and word-of-mouth marketing.
+      - Target market not too saturated and not too niche.
+    Deliverables:
+      - "real_world_example": Identify an existing mobile application that partially addresses the same problem, including its name, a brief description, and key features.
+      - "current_limitations": List the main limitations or pain points of the identified application.
+      - "improved_steps": Provide a structured list of refined steps that streamline the user journey, eliminate friction, and improve engagement.
+      - "ux_enhancements": Detail key UX improvements that enhance usability, accessibility, and customer satisfaction.
+      - Explain how the proposed solution offers clear innovation and a competitive advantage over existing solutions on App store and Play store.
+    Note:
+      - The narrative should be detailed and authentic rather than overly promotional.
+      - The solution must be B2C-focused and built using simple, proven, and cost-effective technologies, enabling an MVP launch on a lean startup budget.
+      - Avoid niche topics unless they address broad, everyday needs.
   expected_output: >
-    A JSON object with keys "improved_steps", "disruptive_elements" (array of strings), and "expected_benefits".
+    {
+      "real_world_example": {
+        "name": "string",
+        "description": "string",
+        "key_features": ["string", "string"]
+      },
+      "current_limitations": ["string", "string", "string"],
+      "improved_steps": ["Step 1", "Step 2", "Step 3"],
+      "ux_enhancements": ["Enhancement 1", "Enhancement 2", "Enhancement 3"]
+    }
+  agent: business_strategist
+
+tobe_scenario_map_proposition_D:
+  description: >
+    Using the final As-Is Scenario Map as a reference and the solutions found previously, propose an alternative future state narrative for a mobile application solution that significantly enhances the user experience and effectively addresses the persona's problem. The solution must:
+      - Focus on a single, clearly defined issue without bundling unrelated functionalities.
+      - Be designed for broad adoption by B2C users with a cost-effective and scalable technology stack (e.g., a simple backend, no AI).
+      - Address identified pain points with concrete, measurable improvements.
+      - Introduce a fresh, innovative approach with features or improvements not already offered by existing solutions on App store and Play store.
+      - Incorporate inherent mechanisms for viral growth through intuitive design and word-of-mouth marketing.
+      - Target market not too saturated and not too niche.
+    Deliverables:
+      - "real_world_example": Identify an existing mobile application that partially addresses the same problem, including its name, a brief description, and key features.
+      - "current_limitations": List the main limitations or pain points of the identified application.
+      - "improved_steps": Provide a structured list of refined steps that streamline the user journey, eliminate friction, and improve engagement.
+      - "ux_enhancements": Detail key UX improvements that enhance usability, accessibility, and customer satisfaction.
+      - Explain how the proposed solution offers clear innovation and a competitive advantage over existing solutions on App store and Play store.
+    Note:
+      - The narrative should be detailed and authentic rather than overly promotional.
+      - The solution must be B2C-focused and built using simple, proven, and cost-effective technologies, enabling an MVP launch on a lean startup budget.
+      - Avoid niche topics unless they address broad, everyday needs.
+  expected_output: >
+    {
+      "real_world_example": {
+        "name": "string",
+        "description": "string",
+        "key_features": ["string", "string"]
+      },
+      "current_limitations": ["string", "string", "string"],
+      "improved_steps": ["Step 1", "Step 2", "Step 3"],
+      "ux_enhancements": ["Enhancement 1", "Enhancement 2", "Enhancement 3"]
+    }
+  agent: data_analyst
+
+tobe_scenario_map_proposition_E:
+  description: >
+    Using the final As-Is Scenario Map as a reference and the solutions found previously, propose an alternative future state narrative for a mobile application solution that significantly enhances the user experience and effectively addresses the persona's problem. The solution must:
+      - Focus on a single, clearly defined issue without bundling unrelated functionalities.
+      - Be designed for broad adoption by B2C users with a cost-effective and scalable technology stack (e.g., a simple backend, no AI).
+      - Address identified pain points with concrete, measurable improvements.
+      - Introduce a fresh, innovative approach with features or improvements not already offered by existing solutions on App store and Play store.
+      - Incorporate inherent mechanisms for viral growth through intuitive design and word-of-mouth marketing.
+      - Target market not too saturated and not too niche.
+    Deliverables:
+      - "real_world_example": Identify an existing mobile application that partially addresses the same problem, including its name, a brief description, and key features.
+      - "current_limitations": List the main limitations or pain points of the identified application.
+      - "improved_steps": Provide a structured list of refined steps that streamline the user journey, eliminate friction, and improve engagement.
+      - "ux_enhancements": Detail key UX improvements that enhance usability, accessibility, and customer satisfaction.
+      - Explain how the proposed solution offers clear innovation and a competitive advantage over existing solution on App store and Play store.
+    Note:
+      - The narrative should be detailed and authentic rather than overly promotional.
+      - The solution must be B2C-focused and built using simple, proven, and cost-effective technologies, enabling an MVP launch on a lean startup budget.
+      - Avoid niche topics unless they address broad, everyday needs.
+  expected_output: >
+    {
+      "real_world_example": {
+        "name": "string",
+        "description": "string",
+        "key_features": ["string", "string"]
+      },
+      "current_limitations": ["string", "string", "string"],
+      "improved_steps": ["Step 1", "Step 2", "Step 3"],
+      "ux_enhancements": ["Enhancement 1", "Enhancement 2", "Enhancement 3"]
+    }
   agent: creative_facilitator
 
 tobe_scenario_map_comparison:
   description: >
-    Compare the different "To-Be" proposals to identify the strongest elements and areas of synergy.
+    Analyze and compare the multiple To-Be Scenario Maps to identify strengths, weaknesses, and innovative elements across all proposed solutions.
+
+    # Added cross-validation element
+    For each solution, critically evaluate:
+    - How well it addresses the core pain points identified in the As-Is map
+    - Whether it introduces new potential friction points
+    - The realism and feasibility of implementation
+    - The potential for user adoption and engagement
+
+    # Adding contextual dynamics 
+    In your comparison, consider how each solution would perform:
+    - Under different contexts (e.g., high stress vs. leisure time)
+    - For users with varying levels of technical proficiency
+    - When the user's situation changes unexpectedly
+
+    # Added deliberate challenge element
+    Identify at least one assumption or potential shortcoming in EACH solution that should be addressed before proceeding further.
   expected_output: >
-    A JSON object with keys "common_improvements", "differences", and "integration_suggestions", each an array of strings.
-  agent: design_facilitator
+    A structured JSON object in the following format:
+    {
+      "comparative_analysis": [
+        {
+          "solution_reference": "string",
+          "strengths": ["string", "string"],
+          "weaknesses": ["string", "string"],
+          "innovative_elements": ["string", "string"],
+          "key_assumption": "string",
+          "contextual_performance": {
+            "high_stress": "string",
+            "low_tech_user": "string",
+            "changing_circumstances": "string"
+          }
+        }
+      ],
+      "cross_cutting_insights": ["string", "string", "string"]
+    }
+  agent: business_strategist
 
 tobe_scenario_map_synthesis:
   description: >
-    Synthesize the proposals into a final "To-Be" scenario map that reflects the optimal future state.
-  expected_output: >
-    A final JSON object representing the consolidated "To-Be" map with keys "improved_steps", "key_enhancements", and "expected_benefits".
-  agent: design_facilitator
+    Synthesize multiple compared To-Be scenario maps into a single, comprehensive future-state map.
+    The final map should integrate the strengths of each proposal while addressing identified weaknesses and assumptions.
 
-# =========================
-# Phase: Prototyping & Scenario Mapping – Storyboard
-# =========================
-storyboard_proposition_A:
-  description: >
-    Propose an initial storyboard that visually outlines the entire user journey from start to finish.
-  expected_output: >
-    A JSON array of storyboard frames. Each frame should be an object with keys "frame_number", "description", and "visual_elements" (array of strings).
-  agent: ui_designer
+    # Added error correction element
+    In your synthesis:
+    - Acknowledge the key assumptions identified in the comparison
+    - Propose specific adjustments to address each assumption
+    - Include at least one alternative flow for when the primary process encounters issues
+    - Identify 2-3 potential edge cases and how the solution would handle them
 
-storyboard_proposition_B:
-  description: >
-    Propose an alternative storyboard with additional narrative details to enrich the user journey.
+    # Added contextual variability
+    Your synthesis should also address:
+    - How the solution adapts to different user contexts (time, place, emotional state)
+    - How the solution handles unexpected changes in user circumstances
+    - Where the solution might need to be flexible vs. where it should be consistent
   expected_output: >
-    A JSON array with the same structure as proposition A, including more detailed narrative descriptions.
+    A structured JSON object in the following format:
+    {
+      "solution_name": "string",
+      "solution_summary": "string",
+      "scenario_map": [
+        {
+          "step": "string",
+          "description": "string",
+          "value_added": "string",
+          "potential_challenges": "string",
+          "contextual_adaptations": "string"
+        }
+      ],
+      "alternative_flows": [
+        {
+          "trigger": "string",
+          "steps": ["string", "string"]
+        }
+      ],
+      "edge_cases": [
+        {
+          "scenario": "string",
+          "solution_response": "string"
+        }
+      ],
+      "assumption_mitigations": [
+        {
+          "assumption": "string",
+          "mitigation": "string"
+        }
+      ]
+    }
+  agent: product_manager
+
+big_idea_vignettes_proposition_A:
+  description: >
+    Create a compelling solution narrative that brings the To-Be scenario to life.
+
+    # Added variability in tone
+    Your vignette should:
+    - Present the solution from the perspective of the user in a personal, first-person narrative
+    - Include emotional high and low points to illustrate the user's journey
+    - Use vivid, specific details while avoiding marketing language
+    - Show rather than tell how the solution transforms the user's experience
+
+    # Added realistic inconsistency
+    Include a moment where the user initially struggles with or misunderstands some aspect of the solution, before discovering how to use it effectively.
+  expected_output: >
+    A structured JSON object in the following format:
+    {
+      "vignette_title": "string",
+      "user_story": "string (500-750 words, first-person narrative)",
+      "key_moments": [
+        {
+          "moment": "string",
+          "emotion": "string",
+          "insight": "string"
+        }
+      ],
+      "initial_struggle": {
+        "description": "string",
+        "resolution": "string",
+        "learning": "string"
+      },
+      "transformation": {
+        "before": "string",
+        "after": "string"
+      }
+    }
   agent: ux_designer
 
-storyboard_proposition_C:
+big_idea_vignettes_proposition_B:
   description: >
-    Propose a third storyboard that integrates creative visual elements to enhance the narrative.
+    Create an alternative solution narrative that brings the To-Be scenario to life, but from a different perspective than the first vignette.
+
+    # Added contextual variation
+    This vignette should:
+    - Describe the same core solution but in a different context or situation
+    - Focus on a different primary benefit or use case
+    - Include a different set of emotional touchpoints
+    - Explore an edge case or less common usage scenario
+
+    # Added realistic challenge
+    Include a scenario where external factors (environment, technical constraints, social situation) temporarily complicate the use of the solution, and show how the user overcomes this.
   expected_output: >
-    A JSON array with the same structure as above, emphasizing creative visual storytelling.
+    A structured JSON object in the following format:
+    {
+      "vignette_title": "string",
+      "user_story": "string (500-750 words)",
+      "context_difference": "string (how this scenario differs from the first)",
+      "key_moments": [
+        {
+          "moment": "string",
+          "emotion": "string",
+          "insight": "string"
+        }
+      ],
+      "external_challenge": {
+        "situation": "string",
+        "complication": "string",
+        "resolution": "string"
+      },
+      "unique_benefit_highlighted": "string"
+    }
   agent: creative_facilitator
 
-storyboard_comparison:
+big_idea_vignettes_proposition_C:
   description: >
-    Compare the three storyboard proposals to evaluate the narrative flow, clarity, and visual appeal.
-  expected_output: >
-    A JSON object with keys "narrative_comparison" and "visual_comparison", each an array of strings listing strengths and weaknesses.
-  agent: design_facilitator
+    Create a third solution narrative, this time from the perspective of a skeptical or reluctant user who is initially resistant to the solution.
 
-storyboard_synthesis:
-  description: >
-    Synthesize the storyboard proposals into a final, cohesive storyboard that clearly represents the solution journey.
-  expected_output: >
-    A final JSON array of storyboard frames (as defined earlier) that integrates the best aspects of all proposals.
-  agent: design_facilitator
+    # Added contradictory perspective
+    This vignette should:
+    - Begin with the user being doubtful, frustrated, or unimpressed with the solution
+    - Show the user's gradual discovery of value in unexpected ways
+    - Include at least one moment where the solution doesn't work as expected
+    - End with a nuanced, realistic assessment that acknowledges both strengths and limitations
 
-# =========================
-# Phase: Prototyping & Scenario Mapping – Technical Feasibility Analysis
-# =========================
-tech_feasibility_proposition_A:
-  description: >
-    Propose an initial technical feasibility analysis, evaluating constraints and potential for implementation.
+    # Added multi-turn dynamic
+    Structure this as a "journal" or "diary" with multiple entries over time, showing the evolution of the user's relationship with the solution.
   expected_output: >
-    A JSON object with keys "viability", "constraints", and "recommendations", each mapping to an array of strings.
-  agent: software_engineer
+    A structured JSON object in the following format:
+    {
+      "vignette_title": "string",
+      "journal_entries": [
+        {
+          "day": "string (e.g., 'Day 1')",
+          "entry": "string",
+          "sentiment": "string"
+        }
+      ],
+      "initial_skepticism": {
+        "reason": "string",
+        "specific_doubts": ["string", "string"]
+      },
+      "turning_point": {
+        "trigger": "string",
+        "realization": "string"
+      },
+      "limitation_encounter": {
+        "situation": "string",
+        "disappointment": "string",
+        "accommodation": "string"
+      },
+      "final_assessment": {
+        "positives": ["string", "string"],
+        "remaining_concerns": ["string", "string"],
+        "overall_verdict": "string"
+      }
+    }
+  agent: data_analyst
 
-tech_feasibility_proposition_B:
+big_idea_vignettes_comparison:
   description: >
-    Propose an alternative analysis that includes risk assessment and operational constraints.
+    Analyze the three different vignettes to identify key insights, contradictions, and shared elements that enhance our understanding of the potential solution.
+
+    # Added cross-validation
+    In your comparison:
+    - Highlight areas where vignettes reinforce each other (confirming insights)
+    - Identify contradictions or tensions between different user experiences
+    - Extract insights about different contexts and how they affect the solution's value
+    - Assess which persona characteristics most influence the experience
+
+    # Added error identification
+    Identify at least two potential misconceptions or overstatements across the vignettes that might lead to design errors if not addressed.
   expected_output: >
-    A JSON object with keys "risks", "operational_constraints", and "suggestions", each an array of strings.
+    A structured JSON object in the following format:
+    {
+      "reinforcing_elements": [
+        {
+          "theme": "string",
+          "evidence": ["string", "string"]
+        }
+      ],
+      "contradictions": [
+        {
+          "aspect": "string",
+          "variant_experiences": ["string", "string"],
+          "interpretation": "string"
+        }
+      ],
+      "contextual_insights": [
+        {
+          "context": "string",
+          "impact": "string"
+        }
+      ],
+      "potential_misconceptions": [
+        {
+          "misconception": "string",
+          "correction": "string",
+          "design_implication": "string"
+        }
+      ],
+      "key_persona_influencers": ["string", "string", "string"]
+    }
+  agent: innovation_coach
+
+big_idea_vignettes_synthesis:
+  description: >
+    Create a final, synthesized solution narrative that incorporates the strongest elements from all three vignettes while addressing the identified contradictions and potential misconceptions.
+
+    # Added iterative refinement
+    In your synthesis:
+    - Address each potential misconception directly
+    - Incorporate the diversity of user experiences from different contexts
+    - Present a balanced view of both benefits and limitations
+    - Include realistic adaptation to changing circumstances
+
+    # Added multi-tour interaction element
+    Structure your narrative to show how the experience evolves over time through multiple interactions, demonstrating initial use, adaptation, mastery, and long-term value.
+  expected_output: >
+    A structured JSON object in the following format:
+    {
+      "solution_name": "string",
+      "tagline": "string",
+      "narrative": {
+        "first_encounter": "string",
+        "learning_period": "string",
+        "adaptation": "string",
+        "mastery": "string",
+        "long_term_value": "string"
+      },
+      "benefit_limitation_pairs": [
+        {
+          "benefit": "string",
+          "corresponding_limitation": "string",
+          "net_assessment": "string"
+        }
+      ],
+      "contextual_adaptability": [
+        {
+          "changing_circumstance": "string",
+          "solution_response": "string"
+        }
+      ],
+      "misconception_clarifications": [
+        {
+          "misconception": "string",
+          "reality": "string"
+        }
+      ]
+    }
   agent: product_manager
 
-tech_feasibility_proposition_C:
+# Writing Hills – Refine the Mobile App Solution Narrative
+writing_hills_proposition_A:
   description: >
-    Propose a complementary analysis focusing on cost-benefit and return on investment aspects.
-  expected_output: >
-    A JSON object with keys "cost_benefit", "roi_evaluation", and "financial_recommendations", each mapping to an array of strings.
-  agent: business_strategist
+    Using the final synthesized solution narrative, create a concise "Who-What-Wow" statement that articulates the core value proposition of your mobile application solution.
 
-tech_feasibility_comparison:
-  description: >
-    Compare the technical feasibility analyses from propositions A, B, and C to identify converging findings and critical issues.
-  expected_output: >
-    A JSON object with keys "common_findings", "differences", and "critical_issues", each an array of strings.
-  agent: design_facilitator
+    # Added contextual dimension
+    Your statement should:
+    - Clearly identify a specific user profile (WHO)
+    - Articulate a concrete, measurable outcome (WHAT)
+    - Express a distinctive, emotionally resonant benefit that sets the solution apart (WOW)
 
-tech_feasibility_synthesis:
-  description: >
-    Synthesize the technical feasibility analyses into a final, comprehensive report.
+    # Added realistic limitation acknowledgment
+    In addition to the core statement, include:
+    - One practical limitation or boundary condition of the solution
+    - How this limitation is actually turned into a strength (focus, simplicity, etc.)
+    - A time-based element showing how value evolves with continued use
   expected_output: >
-    A final JSON object with keys "final_viability", "final_constraints", and "final_recommendations", each mapping to an array of strings.
-  agent: design_facilitator
-
-# =========================
-# Phase: Test & Feedback – Playbacks
-# =========================
-playbacks_proposition_A:
-  description: >
-    Propose an initial session plan for a playback, detailing how prototypes and scenarios will be presented to stakeholders.
-  expected_output: >
-    A JSON object with keys "session_objectives", "structure", and "discussion_points", where each key maps to an array of strings.
+    A structured JSON object in the following format:
+    {
+      "hills_statement": {
+        "who": "string",
+        "what": "string",
+        "wow": "string",
+        "complete_statement": "string"
+      },
+      "time_dimension": {
+        "initial_value": "string",
+        "growing_value": "string",
+        "long_term_value": "string"
+      },
+      "practical_boundary": {
+        "limitation": "string",
+        "reframing_as_strength": "string"
+      }
+    }
   agent: product_manager
 
-playbacks_proposition_B:
+writing_hills_proposition_B:
   description: >
-    Propose an alternative playback plan that incorporates interactive elements to enhance stakeholder engagement.
-  expected_output: >
-    A JSON object with the same keys as in proposition A, with added interactive elements noted in "discussion_points".
-  agent: design_facilitator
+    Challenge and refine the initial Who-What-Wow statement by introducing a deliberately provocative counter-perspective. 
 
-playbacks_proposition_C:
-  description: >
-    Propose a third playback plan focused on concrete demonstrations and immersive user scenarios.
+    # Added challenging perspective
+    In your counter-proposal:
+    - Question one key assumption in the original WHO (e.g., different user demographic, different usage context)
+    - Challenge the WHAT by proposing an alternative or expanded outcome
+    - Reimagine the WOW element from a different angle or value perspective
+
+    # Added multi-turn interaction
+    Structure your response as a dialogue between:
+    - A supportive but critical voice questioning the original statement
+    - A defensive voice explaining the original rationale
+    - A synthesis voice that finds middle ground
   expected_output: >
-    A JSON object with keys "session_objectives", "demonstration_details", and "interactive_activities", each mapping to an array of strings.
+    A structured JSON object in the following format:
+    {
+      "critical_dialogue": [
+        {
+          "speaker": "Challenger",
+          "statement": "string",
+          "questioned_element": "string"
+        },
+        {
+          "speaker": "Defender",
+          "statement": "string",
+          "evidence": "string"
+        },
+        {
+          "speaker": "Synthesizer",
+          "statement": "string"
+        }
+      ],
+      "alternative_hills": {
+        "who": "string",
+        "what": "string",
+        "wow": "string",
+        "complete_statement": "string"
+      },
+      "key_differences": {
+        "who_difference": "string",
+        "what_difference": "string",
+        "wow_difference": "string"
+      },
+      "suggested_refinements": ["string", "string", "string"]
+    }
   agent: creative_facilitator
 
-playbacks_comparison:
+writing_hills_comparison:
   description: >
-    Compare the different playback session plans to evaluate effectiveness, interactivity, and stakeholder engagement.
-  expected_output: >
-    A JSON object with keys "effective_elements", "areas_for_improvement", and "final_recommendations", each an array of strings.
-  agent: design_facilitator
+    Critically analyze both proposed Hills statements to identify strengths, weaknesses, and opportunities for synthesis.
 
-playbacks_synthesis:
-  description: >
-    Synthesize the playback session plans into a final, consensus-based plan ready for implementation.
-  expected_output: >
-    A final JSON object with keys "final_session_plan" (an object with keys "objectives", "structure", "activities") detailing the agreed session plan.
-  agent: design_facilitator
+    # Added cross-validation element
+    In your analysis:
+    - Test each statement against the core findings from the empathy map and persona
+    - Examine assumptions embedded in each statement and their validity
+    - Assess which elements better address the identified pain points
+    - Evaluate which formulation is more likely to drive user engagement and retention
 
-# =========================
-# Phase: Test & Feedback – Feedback Grid
-# =========================
-feedback_grid_proposition_A:
-  description: >
-    Propose an initial feedback grid structure to capture stakeholder feedback during playback sessions.
+    # Added external factor consideration
+    Consider how each Hills statement would fare:
+    - In different market conditions (growing vs. saturated market)
+    - Against evolving user expectations over time
+    - When facing competitive pressure or alternatives
   expected_output: >
-    A JSON object with keys "criteria" (an array of strings) and "rating_scale" (a description of the scale, e.g., "1-5").
-  agent: data_analyst
-
-feedback_grid_proposition_B:
-  description: >
-    Propose an alternative feedback grid that incorporates user experience metrics.
-  expected_output: >
-    A JSON object with keys "criteria", "ux_metrics" (an array of strings), and "rating_scale".
-  agent: ux_designer
-
-feedback_grid_proposition_C:
-  description: >
-    Propose a feedback grid from a strategic perspective, including business and operational performance indicators.
-  expected_output: >
-    A JSON object with keys "criteria", "business_indicators" (an array of strings), and "rating_scale".
+    A structured JSON object in the following format:
+    {
+      "comparative_analysis": {
+        "who_component": {
+          "version_a_strengths": ["string", "string"],
+          "version_a_weaknesses": ["string", "string"],
+          "version_b_strengths": ["string", "string"],
+          "version_b_weaknesses": ["string", "string"],
+          "recommended_approach": "string"
+        },
+        "what_component": {
+          "version_a_strengths": ["string", "string"],
+          "version_a_weaknesses": ["string", "string"],
+          "version_b_strengths": ["string", "string"],
+          "version_b_weaknesses": ["string", "string"],
+          "recommended_approach": "string"
+        },
+        "wow_component": {
+          "version_a_strengths": ["string", "string"],
+          "version_a_weaknesses": ["string", "string"],
+          "version_b_strengths": ["string", "string"],
+          "version_b_weaknesses": ["string", "string"],
+          "recommended_approach": "string"
+        }
+      },
+      "external_factor_assessment": {
+        "market_dynamics": "string",
+        "evolving_expectations": "string",
+        "competitive_considerations": "string"
+      },
+      "validation_against_research": {
+        "empathy_map_alignment": "string",
+        "persona_needs_alignment": "string",
+        "pain_points_addressed": "string"
+      },
+      "recommended_synthesis_approach": "string"
+    }
   agent: business_strategist
 
-feedback_grid_comparison:
+writing_hills_synthesis:
   description: >
-    Compare the feedback grid proposals to identify the most relevant criteria and harmonize the evaluation approach.
+    Create a final, refined Hills statement that synthesizes the strongest elements from both proposals while addressing the insights from the comparative analysis.
+
+    # Added iterative refinement element
+    Your synthesis should:
+    - Explicitly address how it incorporates feedback from the comparison
+    - Show evolution from the initial proposals with clear improvements
+    - Acknowledge trade-offs made in the final formulation
+    - Provide rationale for each choice made in the final statement
+
+    # Added resilience testing
+    After presenting your synthesis, include a self-critique section where you:
+    - Identify potential weaknesses in your final statement
+    - Propose how these weaknesses could be mitigated in implementation
+    - Suggest metrics to validate the effectiveness of the Hills statement
   expected_output: >
-    A JSON object with keys "selected_criteria" (an array of strings) and "integration_plan" (an array of strings describing how to merge the grids).
+    A structured JSON object in the following format:
+    {
+      "final_hills_statement": {
+        "who": "string",
+        "what": "string",
+        "wow": "string",
+        "complete_statement": "string"
+      },
+      "synthesis_rationale": {
+        "who_decisions": "string",
+        "what_decisions": "string", 
+        "wow_decisions": "string"
+      },
+      "evolution_from_originals": {
+        "key_improvements": ["string", "string"],
+        "trade_offs": ["string", "string"]
+      },
+      "self_critique": {
+        "potential_weaknesses": ["string", "string"],
+        "mitigation_strategies": ["string", "string"],
+        "validation_metrics": ["string", "string"]
+      },
+      "final_solution_name": "string",
+      "final_tagline": "string"
+    }
   agent: design_facilitator
 
-feedback_grid_synthesis:
+# Final Synthesis - Tie everything together
+final_solution_overview:
   description: >
-    Synthesize the feedback grid proposals into a final, comprehensive tool for capturing and analyzing stakeholder feedback.
-  expected_output: >
-    A final JSON object with keys "final_criteria" (array of strings) and "final_rating_scale" (string) that will be used to capture feedback.
-  agent: design_facilitator
+    Create a comprehensive overview of the final mobile application solution that ties together all the insights and deliverables from the design thinking process.
 
-# =========================
-# Phase: Roadmapping – Experience Based Roadmapping
-# =========================
-roadmapping_proposition_A:
-  description: >
-    Propose an initial operational roadmap detailing the phases of development, testing, and deployment based on gathered insights.
-  expected_output: >
-    A JSON object with keys "milestones" (array of strings), "phases" (array of strings), and "resource_requirements" (array of strings).
-  agent: product_manager
+    # Added multi-perspective integration
+    Your overview should:
+    - Synthesize key insights from each phase of the process (empathy, as-is, to-be, vignettes, hills)
+    - Show how the solution evolved and improved through iterative feedback
+    - Highlight how contradictions and tensions were resolved in the final concept
+    - Present a balanced view of strengths and limitations
 
-roadmapping_proposition_B:
-  description: >
-    Propose an alternative roadmap that includes detailed technical planning and implementation constraints.
-  expected_output: >
-    A JSON object with keys "technical_milestones" (array of strings), "timeline" (string), and "technical_constraints" (array of strings).
-  agent: software_engineer
+    # Added realistic developmental timeline
+    Include a section showing how the solution might evolve over time:
+    - Initial MVP features focused on core value proposition
+    - Second phase enhancements responding to early user feedback
+    - Future directions that could expand the solution while maintaining focus
 
-roadmapping_proposition_C:
-  description: >
-    Propose a roadmap with a market-oriented perspective, incorporating strategic milestones and performance indicators.
+    # Added contextual adaptability
+    Address how the solution adapts to:
+    - Different user personas and needs
+    - Varying contexts of use
+    - Changing circumstances over time
   expected_output: >
-    A JSON object with keys "market_goals" (array of strings), "strategic_milestones" (array of strings), and "KPIs" (array of strings).
-  agent: business_strategist
-
-roadmapping_comparison:
-  description: >
-    Compare the different roadmap proposals to refine the overall planning.
-  expected_output: >
-    A JSON object with keys "common_milestones", "differences", and "refinement_recommendations", each an array of strings.
-  agent: design_facilitator
-
-roadmapping_synthesis:
-  description: >
-    Synthesize the roadmap proposals into a final, integrated roadmap that aligns technical, strategic, and operational perspectives.
-  expected_output: >
-    A final JSON object with keys "final_milestones", "final_timeline", and "final_resource_plan".
-  agent: design_facilitator
-
-# =========================
-# Phase: Documentation – Complete Documentation
-# =========================
-documentation_proposition_A:
-  description: >
-    Gather all deliverables from previous phases (Empathy, Definition, Ideation, Prototyping, Test & Feedback) into an initial documentation draft.
-  expected_output: >
-    A JSON object with a key "draft_sections" that maps to an array of strings (section names) and "content_summary" that maps each section name to a summary string.
-  agent: data_analyst
-
-documentation_proposition_B:
-  description: >
-    Enhance the initial documentation by adding narrative explanations, context, and a structured organization of the content.
-  expected_output: >
-    A JSON object with keys "narrative_explanations" (array of strings) and "organized_content" (an object where each key is a section name and its value is a detailed string).
-  agent: ux_designer
-
-documentation_proposition_C:
-  description: >
-    Integrate strategic and technical perspectives into the documentation, detailing recommendations and the final roadmap.
-  expected_output: >
-    A JSON object with keys "strategic_recommendations" (array of strings) and "technical_overview" (string), plus a key "final_roadmap" that references the integrated roadmap.
-  agent: business_strategist
-
-documentation_comparison:
-  description: >
-    Compare the different documentation proposals to identify redundancies, inconsistencies, and areas for harmonization.
-  expected_output: >
-    A JSON object with keys "redundancies" (array of strings), "inconsistencies" (array of strings), and "harmonization_suggestions" (array of strings).
-  agent: design_facilitator
-
-documentation_synthesis:
-  description: >
-    Synthesize and validate all documentation content into one final, coherent, and comprehensive document that captures the entire design thinking process.
-  expected_output: >
-    A final markdown file with the solution in the title and the complete documentation.
+    A structured JSON object in the following format:
+    {
+      "solution_name": "string",
+      "tagline": "string",
+      "hills_statement": "string",
+      "process_evolution": {
+        "key_persona_insights": "string",
+        "critical_pain_points": "string",
+        "major_transformations": "string",
+        "resolved_contradictions": "string"
+      },
+      "core_value_proposition": "string",
+      "development_timeline": {
+        "mvp": {
+          "core_features": ["string", "string", "string"],
+          "key_metrics": ["string", "string"]
+        },
+        "phase_two": {
+          "enhancements": ["string", "string", "string"],
+          "response_to_feedback": "string"
+        },
+        "future_potential": {
+          "expansion_opportunities": ["string", "string"],
+          "maintaining_focus": "string"
+        }
+      },
+      "contextual_adaptability": {
+        "persona_variations": "string",
+        "usage_contexts": "string",
+        "evolving_circumstances": "string"
+      },
+      "balanced_assessment": {
+        "key_strengths": ["string", "string", "string"],
+        "acknowledged_limitations": ["string", "string"],
+        "competitive_differentiation": "string"
+      }
+    }
   agent: design_facilitator

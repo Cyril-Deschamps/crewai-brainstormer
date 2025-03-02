@@ -9,11 +9,8 @@ dependencies = [
 ]
 
 [project.scripts]
-idea_generator = "idea_generator.main:run"
 run_crew = "idea_generator.main:run"
-train = "idea_generator.main:train"
-replay = "idea_generator.main:replay"
-test = "idea_generator.main:test"
+run_all_crews = "idea_generator.main:runAll"
 
 [build-system]
 requires = ["hatchling"]
