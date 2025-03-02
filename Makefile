@@ -20,20 +20,10 @@ init:
 	crewai install
 	@echo "✅ Installation complete!"
 	@echo "ℹ️  Don't forget to configure your .env file with your API keys."
-
+	
 run:
-	@bash -c "trap 'kill 0; exit 1' INT TERM; \
-		echo \"🚀 Launching $(i) instance(s) of the idea generator...\" && \
-		for i in \$$(seq 1 $(i)); do \
-			echo \"🔄 Launching instance \$$i...\" && \
-			python src/idea_generator/main.py > /dev/null 2>&1 & \
-		done && \
-		wait && \
-		echo \"✅ All instances have completed.\" && \
-		echo \"📝 Reports have been generated in the logs/ directory\""
+	python src/idea_generator/parallel_runner.py $(i)
 
 clean:
 	@echo "Cleaning temporary files and caches..."
-	rm -rf __pycache__
-	rm -rf logs/*
-	@echo "✅ Cleaning complete!"
+	rm -rf logs

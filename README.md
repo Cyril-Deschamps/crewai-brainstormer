@@ -47,7 +47,6 @@ The system simulates a complete design thinking process in 5 sequential phases:
 ### Prerequisites
 
 - Python >=3.10 <3.13
-- [UV](https://docs.astral.sh/uv/) for dependency management
 - [Make](https://www.gnu.org/software/make/) (optional, to use the Makefile)
 
 ### Installation Steps
@@ -61,14 +60,14 @@ cd idea_generator
 
 2. Project initialization:
 
-### Quick method:
+- Quick method:
 
 ```bash
 # Single command to install everything
 make init
 ```
 
-### Manual method:
+- Manual method:
 
 ```bash
 # Install pip dependencies
@@ -91,8 +90,6 @@ RANDOM_ORG_API_KEY=your_random_org_api_key (optional, for generating random valu
 
 ### Launch Methods
 
-Several options are available to launch the idea generator:
-
 #### With Make (recommended)
 
 ```bash
@@ -109,14 +106,13 @@ make run i=3
 crewai run
 ```
 
-The system will generate a detailed report in the `logs/` folder with a timestamp, containing the entire design process and final results.
+The system will generate a detailed report in the `conversations/` folder with a timestamp, containing the entire design process and final results.
 
 ## 🛠 Customization
 
 - Modify `src/idea_generator/config/agents.yaml` to adjust agent roles and skills
 - Adapt `src/idea_generator/config/tasks.yaml` to modify tasks and prompts
 - Customize `src/idea_generator/crew.py` to change workflow or add new tasks
-- Add your own tools in the `src/idea_generator/tools/` folder
 
 ## 🔄 Project Architecture
 
@@ -127,18 +123,15 @@ idea_generator/
 │       ├── config/
 │       │   ├── agents.yaml    # Agent configuration
 │       │   └── tasks.yaml     # Task definition
-│       ├── tools/             # Custom tools
+│       ├── tools/            # Custom tools
 │       ├── crew.py           # Team and task definition
 │       ├── main.py           # Entry point
 │       └── utils.py          # Utility functions
-├── tests/                    # Unit tests
-├── logs/                     # Generated reports
-├── knowledge/               # Knowledge base (optional)
-├── Dockerfile               # Docker configuration
-├── Makefile                # Commands to initialize and run the project
-├── requirements.txt        # Python dependencies
-├── pyproject.toml         # Project configuration
-└── README.md             # This file
+├── conversations/           # Generated reports
+├── Makefile                 # Commands to initialize and run the project
+├── requirements.txt         # Python dependencies
+├── pyproject.toml           # Project configuration
+└── README.md                # This file
 ```
 
 ## 📄 License

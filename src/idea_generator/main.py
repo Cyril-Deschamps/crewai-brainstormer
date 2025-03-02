@@ -1,14 +1,11 @@
 #!/usr/bin/env python
-import os
 import sys
 import warnings
 import logging
-from dotenv import load_dotenv
 from idea_generator.crew import IdeaGenerator
+import os
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
-
-load_dotenv()
 
 def setup_logger() -> logging.Logger:
     """
@@ -22,7 +19,7 @@ def setup_logger() -> logging.Logger:
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG if os.getenv("DEBUG") == "True" else logging.INFO)
     logger.propagate = False
     return logger
 
@@ -35,20 +32,11 @@ def run():
     """
     logger.debug("Starting idea generation process...")
     try:
-        api_key = os.environ.get("AI_API_KEY")
-        if not api_key:
-            raise ValueError("No API key found in environment variables (AI_API_KEY)")
-
-        model = os.environ.get("AI_MODEL")
-        base_url = os.environ.get("AI_BASE_URL")
-        
-        idea_generator = IdeaGenerator(
-            model=model,
-            api_key=api_key,
-            base_url=base_url,
-        )
+        logger.debug("Initializing idea generator...")
+        idea_generator = IdeaGenerator()
+        os.makedirs("conversations", exist_ok=True)
         logger.debug("Starting idea generator...")
-        result = idea_generator.crew().kickoff()
+        idea_generator.crew().kickoff()
         logger.debug("Idea generation completed successfully!")
     except Exception as e:
         logger.error(f"An error occurred: {str(e)}")
